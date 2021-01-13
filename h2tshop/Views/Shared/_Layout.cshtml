@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Vesper+Libre&display=swap" rel="stylesheet">
+</head>
+<style>
+    *{
+        margin: 0px;padding:0px;
+    }
+    p{
+        margin: 0px;
+    }
+    .header > .row {
+        background-color: #f7f7f7;
+
+    }
+    .header .nav{
+        background-color: white;
+        text-transform: uppercase;
+    }
+    .info li{
+        display: inline-block;
+    }
+    {
+        box-sizing: border-box;
+    }
+
+    /* Button used to open the contact form - fixed at the bottom of the page */
+    .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+    }
+
+    /* The popup form - hidden by default */
+    .form-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+    }
+
+        /* Full-width input fields */
+        .form-container input[type=text], .form-container input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+            /* When the inputs get focus, do something */
+            .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+                background-color: #ddd;
+                outline: none;
+            }
+
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+    form.example input[type=text] {
+        padding: 5px;
+        font-size: 17px;
+        border: 1px solid grey;
+        float: left;
+        width: 70%;
+        background: #f1f1f1;
+    }
+
+    form.example button {
+        float: left;
+        width: 20%;
+        padding: 5px;
+        background: #2196F3;
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
+        border-left: none;
+        cursor: pointer;
+    }
+
+        form.example button:hover {
+            background: #0b7dda;
+        }
+
+    form.example::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .row{
+        margin: 0px !important;
+    }
+</style>
+<body>
+    <div class="header" >
+        <div style="padding: 7px;" class="row">
+            <div class="col-md-4"></div>
+            <div class=" text-center col-md-4">
+                <p>Miễn phí vận chuyển đơn hàng trên 500k</p>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row nav">
+            <div class="col-md-3">             
+                <img class="logo" src="~/Assest/logo.png" />
+            </div>
+            <div style=" padding-top: 15px;" class="menu col-md-6">
+                <nav>
+                    <ul class="menu">
+                        <li class="dropdown dropdown-6">
+                            Sản phẩm
+                            <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
+                                <li class="dropdown_item-1">Áo sơ mi</li>
+                                <li class="dropdown_item-2">Áo thun</li>
+                                <li class="dropdown_item-3">Áo polo</li>
+                                <li class="dropdown_item-4">Áo vest</li>
+                                <li class="dropdown_item-5">Quần bò</li>
+                                <li class="dropdown_item-5">Quần Âu</li>
+                                <li class="dropdown_item-5">Quần tây</li>
+                                <li class="dropdown_item-5">Ví</li>
+                                <li class="dropdown_item-5">Thắt lưng</li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-6">
+                            Sản phẩm mùa đông
+                            <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
+                                <li class="dropdown_item-1">Áo khoác</li>
+                                <li class="dropdown_item-2">Áo bò</li>
+                                <li class="dropdown_item-3">Áo nỉ</li>
+                                <li class="dropdown_item-4">Áo len</li>
+                                <li class="dropdown_item-5">Áo hoocdi</li>
+                                <li class="dropdown_item-5">Áo khoác da</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-6">
+                            Sale upto 50%
+                            
+                        </li>
+                        <li class="dropdown dropdown-6">
+                            Địa chỉ store
+                            <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
+                                <li class="dropdown_item-1">Hà nội</li>
+                                <li class="dropdown_item-2">Bắc giang</li>
+                                <li class="dropdown_item-3">Quảng Ninh</li>
+                              
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-6">
+                            H.Dẫn và C.sách
+                            <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
+                                <li class="dropdown_item-1">Đổi trả</li>
+                                <li class="dropdown_item-2">Kiểm tra đơn</li>
+                            
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-3">
+                <div style="margin-top:  10px !important;" class="row">
+                    <div class="col-md-9">
+                        <div class="search-container">
+                            <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
+                                <input type="text" placeholder="Search.." name="search2">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                                
+                            </form>
+
+                        </div>
+                       
+                    </div>
+                    <div style="padding:5px;" class="col-md-1" >
+                        <div style="z-index:999999;" class="form-popup" id="myForm">
+                            <form action="" class="form-container">
+                                <h1>Login</h1>
+
+                                <label for="email"><b>Email</b></label>
+                                <input type="text" placeholder="Enter Email" name="email" required>
+
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                                <button type="submit" class="btn">Login</button>
+                                <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+                            </form>
+                        </div>
+                    <i class="fa fa-user" onclick="openForm()" style="font-size:24px"></i></div>
+                    <div  style="padding:5px;" class="col-md-1" ><i class="fa fa-shopping-cart" style="font-size:24px"></i></div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()   
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</body>
+</html>
