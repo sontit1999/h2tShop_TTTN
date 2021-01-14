@@ -8,27 +8,33 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="~/Content/mainStyle.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Vesper+Libre&display=swap" rel="stylesheet">
 </head>
 <style>
-    *{
-        margin: 0px;padding:0px;
+    * {
+        margin: 0px;
+        padding: 0px;
     }
-    p{
+
+    p {
         margin: 0px;
     }
+
     .header > .row {
         background-color: #f7f7f7;
-
     }
-    .header .nav{
+
+    .header .nav {
         background-color: white;
         text-transform: uppercase;
     }
-    .info li{
+
+    .info li {
         display: inline-block;
     }
+
     {
         box-sizing: border-box;
     }
@@ -100,6 +106,7 @@
         .form-container .btn:hover, .open-button:hover {
             opacity: 1;
         }
+
     form.example input[type=text] {
         padding: 5px;
         font-size: 17px;
@@ -130,12 +137,13 @@
         clear: both;
         display: table;
     }
-    .row{
+
+    .row {
         margin: 0px !important;
     }
 </style>
-<body>
-    <div class="header" >
+<body style="background-color: white !important">
+    <div class="header">
         <div style="padding: 7px;" class="row">
             <div class="col-md-4"></div>
             <div class=" text-center col-md-4">
@@ -144,7 +152,7 @@
             <div class="col-md-4"></div>
         </div>
         <div class="row nav">
-            <div class="col-md-3">             
+            <div class="col-md-3">
                 <img class="logo" src="~/Assest/logo.png" />
             </div>
             <div style=" padding-top: 15px;" class="menu col-md-6">
@@ -178,7 +186,7 @@
                         </li>
                         <li class="dropdown dropdown-6">
                             Sale upto 50%
-                            
+
                         </li>
                         <li class="dropdown dropdown-6">
                             Địa chỉ store
@@ -186,7 +194,7 @@
                                 <li class="dropdown_item-1">Hà nội</li>
                                 <li class="dropdown_item-2">Bắc giang</li>
                                 <li class="dropdown_item-3">Quảng Ninh</li>
-                              
+
                             </ul>
                         </li>
                         <li class="dropdown dropdown-6">
@@ -194,7 +202,7 @@
                             <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
                                 <li class="dropdown_item-1">Đổi trả</li>
                                 <li class="dropdown_item-2">Kiểm tra đơn</li>
-                            
+
                             </ul>
                         </li>
                     </ul>
@@ -207,13 +215,13 @@
                             <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
                                 <input type="text" placeholder="Search.." name="search2">
                                 <button type="submit"><i class="fa fa-search"></i></button>
-                                
+
                             </form>
 
                         </div>
-                       
+
                     </div>
-                    <div style="padding:5px;" class="col-md-1" >
+                    <div style="padding:5px;" class="col-md-1">
                         <div style="z-index:999999;" class="form-popup" id="myForm">
                             <form action="" class="form-container">
                                 <h1>Login</h1>
@@ -228,15 +236,75 @@
                                 <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
                             </form>
                         </div>
-                    <i class="fa fa-user" onclick="openForm()" style="font-size:24px"></i></div>
-                    <div  style="padding:5px;" class="col-md-1" ><i class="fa fa-shopping-cart" style="font-size:24px"></i></div>
+                        <i class="fa fa-user" onclick="openForm()" style="font-size:24px"></i>
+                    </div>
+                    <div style="padding:5px;" class="col-md-1"><i class="fa fa-shopping-cart" style="font-size:24px"></i></div>
                 </div>
-               
+
             </div>
         </div>
     </div>
-    <div class="container">
-        @RenderBody()   
+    <div style="padding:10px;" class="containers">
+        @RenderBody()
+        <div class="footer row">
+            <div class="text-center col-md-3">
+                <h4>Công ty cổ phần H2T Việt Nam</h4>
+                <p>
+                    Địa chỉ: Số 1, ngõ 40, tổ 14 phố Nguyễn Thị Định, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội<br />
+                    Người đại diện: NGÔ TRÍ TÙNG<br />
+                    Mã số thuế: 0106533311, ngày cấp ĐKKD 08/05/2014. Nơi cấp: Sở kế hoạch và đầu tư Hà Nội.<br />
+
+                </p>
+            </div>
+            <div class="text-center col-md-2">
+                <h4>Chính sách</h4>
+                <p>
+                    Đổi trả
+                </p>
+                <p>
+                    KT đơn hàng
+                </p>
+            </div>
+            <div class="text-center col-md-2">
+                <h4>Cửa hàng</h4>
+                <p>
+                    Hà nội
+                </p>
+                <p>
+                    Hải phòng
+                </p>
+                <p>
+                    Thanh Hóa
+                </p>
+                <p>
+                    Bắc giang
+                </p>
+
+            </div>
+            <div class=" text-center col-md-3">
+                <h4>Tư vấn bán hàng</h4>
+                <p>
+                    <i class="fa fa-phone-square"></i>  0247.306.5859
+                </p>
+                <p>
+                    Tất cả ngày trong tuần
+                </p>
+                <h4>Kết nối với chúng tôi</h4>
+                <p class="contac_social">
+                    <i class="fa fa-phone-square"></i><i class="fa fa-facebook-official"></i><i class="fa fa-twitter-square"></i><i class="fa fa-youtube-square"></i>
+                </p>
+            </div>
+            <div class="text-center col-md-2">
+                <h4>Chăm sóc khách hàng</h4>
+                <p>
+                    <i class="fa fa-phone-square"></i>  0247.306.5859
+                </p>
+                <p>
+                    Tất cả ngày trong tuần
+                </p>
+
+            </div>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
