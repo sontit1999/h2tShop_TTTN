@@ -17,7 +17,9 @@
         margin: 0px;
         padding: 0px;
     }
-
+    a{
+        color: black;
+    }
     p {
         margin: 0px;
     }
@@ -161,7 +163,7 @@
                         <li class="dropdown dropdown-6">
                             Sản phẩm
                             <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
-                                <li class="dropdown_item-1">Áo sơ mi</li>
+                                <li class="dropdown_item-1"><a href="/Cagetory/Index">Áo sơ mi</a></li>
                                 <li class="dropdown_item-2">Áo thun</li>
                                 <li class="dropdown_item-3">Áo polo</li>
                                 <li class="dropdown_item-4">Áo vest</li>
@@ -208,13 +210,13 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-md-3">
+            <div  class="col-md-3">
                 <div style="margin-top:  10px !important;" class="row">
                     <div class="col-md-9">
                         <div class="search-container">
-                            <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
-                                <input type="text" placeholder="Search.." name="search2">
-                                <button type="submit"><i class="fa fa-search"></i></button>
+                            <form class="example" method="post" action="/search/index" style="margin:auto;max-width:300px">
+                                <input style="background-color:white !important" type="text" placeholder="Search.." name="keyword">
+                                <button style="background: #060606 !important;" type="submit"><i class="fa fa-search"></i></button>
 
                             </form>
 
@@ -238,7 +240,7 @@
                         </div>
                         <i class="fa fa-user" onclick="openForm()" style="font-size:24px"></i>
                     </div>
-                    <div style="padding:5px;" class="col-md-1"><i class="fa fa-shopping-cart" style="font-size:24px"></i></div>
+                    <div style="padding:5px;" class="col-md-1"><a href="/cart/index" ><i class="fa fa-shopping-cart" style="font-size:24px"></i></a></div>
                 </div>
 
             </div>
@@ -246,6 +248,7 @@
     </div>
     <div style="padding:10px;" class="containers">
         @RenderBody()
+        <hr />
         <div class="footer row">
             <div class="text-center col-md-3">
                 <h4>Công ty cổ phần H2T Việt Nam</h4>

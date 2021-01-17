@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .item_Cart{
+      position:relative;
+    }
+    item_Cart img {
+        width: 100%;
+        height: auto;
+    }
+    .totalPrice{
+        position:absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+    <div class="title text-center">
+        <h2>Giỏ hàng của bạn</h2>
+        <p>Có <b>5</b> sản phẩm trong giỏ hàng</p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+
+                <div class="row item_Cart">
+                    <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
+                        <div class="text-center">
+                            <img style=" width: 70%; height: auto;margin:0 auto;display:block;" src="~/Assest/aokhoac.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-md-7 text-center">
+                        <h3 class="titleProduct">Áo Phao "KLYHEIASM" 1340</h3>
+                        <p>765,000 đ</p>
+                        <p>Size: M</p>
+                        <input type="number" value="1" min="1" name="number" style="padding:5px;" />
+                    </div>
+                    <div style="text-align:right;position:relative;" class="col-md-2">
+                        <i class="fa fa-close" style="font-size:24px;color:red;"></i>
+
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div>
+
+                <div class="row item_Cart">
+                    <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
+                        <div class="text-center">
+                            <img style=" width: 70%; height: auto;margin:0 auto;display:block;" src="~/Assest/aokhoac.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-md-7 text-center">
+                        <h3 class="titleProduct">Áo Phao "KLYHEIASM" 1340</h3>
+                        <p>765,000 đ</p>
+                        <p>Size: M</p>
+                        <input type="number"  value="1" min="1" name="number" style="padding:5px;" />
+                    </div>
+                    <div style="text-align:right;position:relative;" class="col-md-2">
+                        <i class="fa fa-close" style="        font-size: 24px;
+        color: red;
+"></i>
+
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+        <div style="box-sizing:border-box;padding:40px;border:1px solid #f2ecec;" class="col-md-4">
+            <form action="" method="post">
+                <h3>Thông tin đơn hàng</h3>
+                <hr />
+                <p>Tổng tiền:  <span style="color:red;font-size:20px; font-weight:600">3,560,000 vnđ</span></p>
+                <hr />
+                <p>
+                    Phí vận chuyển sẽ được tính ở trang thanh toán.
+                    Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.
+                </p>
+                <input style="margin:10px;;display:block;width:100%;" type="submit" value="Thanh toán" class="btn btn-danger" />
+                <a style="color:orange" href="/home/index">Tiếp tục mua hàng <i class='fa fa-hand-o-left' style='font-size:24px;color:orange;display:inline-block;margin-left:10px;'></i></a>
+            </form>
+           
+        </div>
+    </div>
