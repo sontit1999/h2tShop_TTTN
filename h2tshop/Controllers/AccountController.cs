@@ -13,5 +13,18 @@ namespace h2tshop.Controllers
         {
             return View();
         }
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(string username,string pass)
+        {  
+            if(username.Equals("admin") && pass.Equals("123"))
+            {
+               return RedirectToAction("Index","Admin");
+            }
+            return this.Login();
+        }
     }
 }

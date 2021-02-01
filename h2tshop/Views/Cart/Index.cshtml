@@ -19,55 +19,35 @@
 </style>
     <div class="title text-center">
         <h2>Giỏ hàng của bạn</h2>
-        <p>Có <b>5</b> sản phẩm trong giỏ hàng</p>
+        <p>Có <b>@ViewBag.numberItem</b> sản phẩm trong giỏ hàng</p>
 
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div>
+            @foreach (var item in @ViewBag.listCart)
+            {
+                <div>
 
-                <div class="row item_Cart">
-                    <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
-                        <div class="text-center">
-                            <img style=" width: 70%; height: auto;margin:0 auto;display:block;" src="~/Assest/aokhoac.jpg" />
+                    <div class="row item_Cart">
+                        <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
+                            <div class="text-center">
+                                <img style=" width: 70%; height: auto;margin:0 auto;display:block;" src="@item.LinkAnh" />
+                            </div>
+                        </div>
+                        <div class="col-md-7 text-center">
+                            <h3 class="titleProduct">@item.TenSanPham</h3>
+                            <p>@item.Gia đ</p>
+                            <p>Size: @item.Size</p>
+                            <input type="number" onchange="myFunction(@item.MaSanPham,this.value)" value="@item.SoLuong" min="1" name="number" style="padding:5px;" />
+                        </div>
+                        <div style="text-align:right;position:relative;" class="col-md-2">
+                            <i class="fa fa-close" style="font-size:24px;color:red;"></i>
+
                         </div>
                     </div>
-                    <div class="col-md-7 text-center">
-                        <h3 class="titleProduct">Áo Phao "KLYHEIASM" 1340</h3>
-                        <p>765,000 đ</p>
-                        <p>Size: M</p>
-                        <input type="number" value="1" min="1" name="number" style="padding:5px;" />
-                    </div>
-                    <div style="text-align:right;position:relative;" class="col-md-2">
-                        <i class="fa fa-close" style="font-size:24px;color:red;"></i>
-
-                    </div>
+                    <hr />
                 </div>
-                <hr />
-            </div>
-            <div>
-
-                <div class="row item_Cart">
-                    <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
-                        <div class="text-center">
-                            <img style=" width: 70%; height: auto;margin:0 auto;display:block;" src="~/Assest/aokhoac.jpg" />
-                        </div>
-                    </div>
-                    <div class="col-md-7 text-center">
-                        <h3 class="titleProduct">Áo Phao "KLYHEIASM" 1340</h3>
-                        <p>765,000 đ</p>
-                        <p>Size: M</p>
-                        <input type="number"  value="1" min="1" name="number" style="padding:5px;" />
-                    </div>
-                    <div style="text-align:right;position:relative;" class="col-md-2">
-                        <i class="fa fa-close" style="        font-size: 24px;
-        color: red;
-"></i>
-
-                    </div>
-                </div>
-                <hr />
-            </div>
+            }
         </div>
         <div style="box-sizing:border-box;padding:40px;border:1px solid #f2ecec;" class="col-md-4">
             <form action="" method="post">
@@ -85,3 +65,20 @@
            
         </div>
     </div>
+    <script>
+        function myFunction(msp, sl) {
+            var cart = {
+                MaSanPham: msp,
+                SoLuong: sl,
+
+            };
+            $.ajax({
+                url: '@Url.Action("updateCart", "Cart")',
+                type: "POST",
+                dataType: 'JSON',
+                data: { MaSanPham: msp, SoLuong: sl }
+            }).done(function (result) {
+                alert(result);
+            });
+        }
+    </script>

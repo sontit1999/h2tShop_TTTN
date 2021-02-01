@@ -34,91 +34,25 @@
 </style>
 <div class="text-center">
     <h2>Tìm kiếm</h2>
-    <p>Có <b>2412</b> sản phẩm </p>
+    <p>Có <b>@ViewBag.sl</b> sản phẩm </p>
 </div>
 <div class="containerProduct">
     <h4>Kết quả tìm kiếm cho <b>"@ViewBag.keyword"</b></h4>
     <div class="row newproduct">
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
+        @foreach (var item in @ViewBag.listSP)
+        {
+            <div class="col-md-3 itemProduct">
+                <a style="text-decoration:none;" href="/Product/detail?id=@item.MaSanPham">
+                    <img src="@item.LinkAnh" />
+                    <h3>
+                        @item.TenSanPham
+                    </h3>
+                </a>
 
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;" href="#">
-                <img src="~/Assest/aokhoac.jpg" />
-                <h3>
-                    Áo Sweatshirt S.E  Triumphal 1334
-                </h3>
-            </a>
-
-            <p>550,000 đ</p>
-        </div>
+                <p>@item.Gia đ</p>
+            </div>
+        }
+       
     </div>
 
     <div class="text-center">

@@ -72,8 +72,8 @@ G:\Project C#\h2tshop\h2tshop\bin\System.Web.WebPages.Razor.xml
 G:\Project C#\h2tshop\h2tshop\bin\Newtonsoft.Json.xml
 G:\Project C#\h2tshop\h2tshop\bin\Antlr3.Runtime.pdb
 G:\Project C#\h2tshop\h2tshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-G:\Project C#\h2tshop\h2tshop\obj\Debug\h2tshop.csprojAssemblyReference.cache
 G:\Project C#\h2tshop\h2tshop\obj\Debug\h2tshop.csproj.CoreCompileInputs.cache
 G:\Project C#\h2tshop\h2tshop\obj\Debug\h2tshop.csproj.CopyComplete
 G:\Project C#\h2tshop\h2tshop\obj\Debug\h2tshop.dll
 G:\Project C#\h2tshop\h2tshop\obj\Debug\h2tshop.pdb
+G:\Project C#\h2tshop\h2tshop\obj\Debug\h2tshop.csprojAssemblyReference.cache

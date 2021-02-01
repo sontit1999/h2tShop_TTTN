@@ -39,40 +39,51 @@
     }
 </style>
     <div class="row">
-        <div class="col-md-6">
-            <img class="img-responsive" src="~/Assest/_nik0518_631e753036ec40d6aa6806b76232f263_grande.jpg" />
-        </div>
-        <div class="col-md-6">
-            <h3 class="titleProduct bold">Áo Khoác SPORTMENS lót lông 1304</h3>
-            <p class="price bold">550 000đ</p>
-            <div style="padding:6px;margin-top:10px;" class="size">
-                <form action="" method="post">
-                    <select name="size" style="padding:6px;">
-                        <option value="M">M</option>
-                        <option value="M">L</option>
-                        <option value="M">XL</option>
-                        <option value="M">2XL</option>
-                        <option value="M">3XL</option>
-                    </select>
-                    <input style="padding:5px;" type="number" name="number" min="1" value="1" />
+        <form method="post" action="/Cart/addCart">
+            <div style="display:none;">
+                <input type="text" name="MaSanPham" value="@ViewBag.sp.MaSanPham" />
+                <input type="text" name="TenSanPham" value="@ViewBag.sp.TenSanPham" />
+                <input type="number" name="Gia" value="@ViewBag.sp.Gia" />
+                <input type="text" name="MoTa" value="@ViewBag.sp.MoTa" />
+                <input type="text" name="LinkAnh" value="@ViewBag.sp.LinkAnh" />
+                <input type="text" name="GhiChu" value="" />
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive" src="@ViewBag.sp.LinkAnh" />
+            </div>
+            <div class="col-md-6">
+                <h3 class="titleProduct bold">@ViewBag.sp.TenSanPham</h3>
+                <p class="price bold">@ViewBag.sp.Gia đ</p>
+                <div style="padding:6px;margin-top:10px;" class="size">
+                   
+                        <select name="Size" style="padding:6px;">
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="2XL">2XL</option>
+                            <option value="3XL">3XL</option>
+                        </select>
+                        <input style="padding:5px;" type="number" name="SoLuong" min="1" value="1" />
 
-                </form>
-               
-            </div>
-            <div class="numberorder">
+                    
 
+                </div>
+                <div class="numberorder">
+
+                </div>
+                <div style="margin-top:10px;">
+                    <input type="submit" value="Thêm vào giỏ hàng" class="btn btn-warning">
+                    <button type="button" class="btn btn-info">Tiếp tục mua</button>
+                </div>
+                <div class="describe">
+                    <h5>Mô tả</h5>
+                    <p>
+                        @ViewBag.sp.MoTa
+                    </p>
+                </div>
             </div>
-            <div style="margin-top:10px;">
-                <button type="button" class="btn btn-warning">Thêm vào giỏ hàng</button>
-                <button type="button" class="btn btn-info">Tiếp tục mua</button>
-            </div>
-            <div class="describe">
-                <h5>Mô tả</h5>
-                <p>
-                    Khoác gió SPORTMENS lót lông cừu SIÊU NHẸ, SIÊU ẤM. Chất liệu poly bền bỉ, siêu giữ nhiệt, chống nước tốt. Bên trong lót lông cừu mềm mượt, đảm bảo giữ ấm tuyệt đối cho cơ thể khi trời "max" lạnh. Thiết kế khỏe khoắn, năng động với khóa zip phối ngực và viền gân dập nổi hai bên túi hông. Áo có mũ tiện lợi.
-                </p>
-            </div>
-        </div>
+        </form>
+     
     </div>
 <hr />
     <div>
