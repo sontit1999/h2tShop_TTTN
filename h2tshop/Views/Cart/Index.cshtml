@@ -41,7 +41,7 @@
                             <input type="number" onchange="myFunction(@item.MaSanPham,this.value)" value="@item.SoLuong" min="1" name="number" style="padding:5px;" />
                         </div>
                         <div style="text-align:right;position:relative;" class="col-md-2">
-                            <i class="fa fa-close" style="font-size:24px;color:red;"></i>
+                            <i class="fa fa-close" onclick="deleteCart(@item.MaSanPham,0)" style="font-size:24px;color:red;"></i>
 
                         </div>
                     </div>
@@ -53,7 +53,7 @@
             <form action="" method="post">
                 <h3>Thông tin đơn hàng</h3>
                 <hr />
-                <p>Tổng tiền:  <span style="color:red;font-size:20px; font-weight:600">3,560,000 vnđ</span></p>
+                <p>Tổng tiền:  <span id="tongtien" style="color:red;font-size:20px; font-weight:600">@ViewBag.tongtien vnd</span></p>
                 <hr />
                 <p>
                     Phí vận chuyển sẽ được tính ở trang thanh toán.
@@ -66,19 +66,32 @@
         </div>
     </div>
     <script>
-        function myFunction(msp, sl) {
-            var cart = {
-                MaSanPham: msp,
-                SoLuong: sl,
 
-            };
+        function myFunction(msp, sl) {
+         
             $.ajax({
                 url: '@Url.Action("updateCart", "Cart")',
                 type: "POST",
                 dataType: 'JSON',
                 data: { MaSanPham: msp, SoLuong: sl }
             }).done(function (result) {
-                alert(result);
+                // cập nhật lại tổng tiền
+                document.getElementById('tongtien').innerText = result.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) ;
             });
         }
+        function deleteCart(msp, sl) {
+
+            $.ajax({
+                url: '@Url.Action("deleteCart", "Cart")',
+                type: "POST",
+                dataType: 'JSON',
+                data: { MaSanPham: msp, SoLuong: sl }
+            }).done(function (result) {
+                // cập nhật lại tổng tiền
+                if (result == 1) {
+                    location.reload();
+                }
+             })
+            }
+           
     </script>
