@@ -1,4 +1,7 @@
-﻿using System;
+﻿using h2tshop.Models;
+using h2tshop.Models.entitiDB;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,13 +21,36 @@ namespace h2tshop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string username,string pass)
+        public ActionResult Login(string username="",string pass="")
         {  
             if(username.Equals("admin") && pass.Equals("123"))
             {
                return RedirectToAction("Index","Admin");
             }
-            return this.Login();
+            var user = UtilsDatabase.getDaTaBase().Users.Where(t => t.TenDangNhap == username && t.MatKhau == pass).FirstOrDefault();
+                   
+            if (user != null)
+            {
+                HttpCookie myCookie = new HttpCookie("AccountCookie");
+                DateTime now = DateTime.Now;
+
+                var acc = new Users();
+                acc.Id = user.Id;
+                acc.HoTen = user.HoTen;
+                acc.DiaChi = user.DiaChi;
+                acc.SoDienThoai = user.SoDienThoai;
+                acc.TenDangNhap = user.TenDangNhap;
+                acc.MatKhau = user.MatKhau;
+                acc.Quyen = user.Quyen;
+                acc.IsActive = user.IsActive;
+                var jsonUser = JsonConvert.SerializeObject(acc);
+                // Set the cookie value.
+                Response.Cookies["acc"].Value = jsonUser;
+                Response.Cookies["acc"].Expires = DateTime.Now.AddDays(200);
+
+                
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

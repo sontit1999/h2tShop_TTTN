@@ -8,70 +8,56 @@
         <div class="col-md-2" ></div>
         <div class="col-md-4 text-center">
             <h3> Thanh toán</h3>
-            <form>
+            <form method="post" action="/Cart/DatHang" >
                 <div class="form-row">
                     <div class="form-group col-md-12">
-
-                        <input type="text" name="hoten" class="form-control" id="inputEmail4" placeholder="Họ và tên">
+                        <input style="display:none;" type="text" name="Id" class="form-control" id="inputEmail4" value="@Model.Id" placeholder="Họ và tên">
+                        <input style="display:none;" type="text" name="Quyen" class="form-control" id="inputEmail4" value="@Model.Quyen" placeholder="Họ và tên">
+                        <input style="display:none;" type="text" name="TenDangNhap" class="form-control" id="inputEmail4" value="@Model.TenDangNhap" placeholder="Họ và tên">
+                        <input style="display:none;" type="text" name="MatKhau" class="form-control" id="inputEmail4" value="@Model.MatKhau" placeholder="Họ và tên">
+                        <input type="text" name="HoTen" class="form-control" id="inputEmail4" value="@Model.HoTen" placeholder="Họ và tên">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
 
-                        <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
+                        <input type="email" name="Email" class="form-control" id="inputEmail4" placeholder="Email">
                     </div>
                     <div class="form-group col-md-6">
 
-                        <input type="number" name="phone" class="form-control" id="inputPassword4" placeholder="Số điện thoại">
+                        <input type="number" name="SoDienThoai" class="form-control" id="inputPassword4" value="@Model.SoDienThoai" placeholder="Số điện thoại">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
 
-                        <input type="text" name="diachi" class="form-control" id="inputEmail4" placeholder="Địa chỉ">
+                        <input type="text" name="DiaChi" class="form-control" id="inputEmail4" value="@Model.DiaChi" placeholder="Địa chỉ">
                     </div>
                 </div>
                 <input style="display:block;margin: 0 auto;padding:10px 25px;" type="submit" value="Xác nhận" class="btn btn-primary" />
             </form>
         </div>
         <div class="col-md-6">
-            <div>
+            @foreach (var item in ViewBag.listsp)
+            {
+                <div>
 
-                <div class="row item_Cart">
-                    <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
-                        <div class="text-center">
-                            <img style=" width: 60%; height: auto;margin:0 auto;display:block;" src="~/Assest/aokhoac.jpg" />
+                    <div class="row item_Cart">
+                        <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
+                            <div class="text-center">
+                                <img style=" width: 60%; height: auto;margin:0 auto;display:block;" src="@item.LinkAnh" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-7 text-center">
-                        <h3 class="titleProduct">Áo Phao "KLYHEIASM" 1340</h3>
-                        <p>765,000 đ</p>
-                        <p>Size: M</p>
-                        <p>Số Lượng: 2 </p>
-                    </div>
-                  
-                </div>
-                <hr />
-            </div>
-            <div>
+                        <div class="col-md-7 text-center">
+                            <h3 class="titleProduct">@item.TenSanPham</h3>
+                            <p>@item.Gia đ</p>                          
+                            <p>Số Lượng: @item.SoLuong </p>
+                        </div>
 
-                <div class="row item_Cart">
-                    <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
-                        <div class="text-center">
-                            <img style=" width: 60%; height: auto;margin:0 auto;display:block;" src="~/Assest/aokhoac.jpg" />
-                        </div>
                     </div>
-                    <div class="col-md-7 text-center">
-                        <h3 class="titleProduct">Áo Phao "KLYHEIASM" 1340</h3>
-                        <p>765,000 đ</p>
-                        <p>Size: M</p>
-                        <p>Số Lượng: 2 </p>
-                    </div>
-                   
+                    <hr />
                 </div>
-                <hr />
-                <p class="text-center"><span style="color:black;font-weight:600;">Tổng tiền:</span> <span style="font-weight:600;color:red;font-size:20px;" >999,999 vnđ</span></p>
-            </div>
+            }
         </div>
     </div>
 

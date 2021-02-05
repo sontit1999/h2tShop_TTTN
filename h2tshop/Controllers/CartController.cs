@@ -1,4 +1,6 @@
-﻿using h2tshop.Models.inputDTO;
+﻿using h2tshop.Models;
+using h2tshop.Models.entitiDB;
+using h2tshop.Models.inputDTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,9 +33,20 @@ namespace h2tshop.Controllers
             ViewBag.numberItem = numberItem;
             return View();
         }
+        [HttpPost]
         public ActionResult ThanhToan()
         {
-            return View();
+            string mystring = Request.Cookies["acc"].Value.ToString();
+            var user = JsonConvert.DeserializeObject<Users>(mystring);
+            var cart = Session["cart"];
+            List<CartItemDTO> listCart = new List<CartItemDTO>();
+            if (cart != null)
+            {
+                 listCart = JsonConvert.DeserializeObject<List<CartItemDTO>>(cart.ToString());
+            }
+            
+            ViewBag.listsp = listCart;
+            return View(user);
         }
         [HttpPost]
         public ActionResult addCart(CartItemDTO cartItem)
@@ -132,6 +145,74 @@ namespace h2tshop.Controllers
 
             }
             return 1;
+        }
+        [HttpPost]
+        public ActionResult DatHang(Users user)
+        {
+           
+             
+            try
+            {
+                // đặt hàng 
+                var cart = Session["cart"];//get key cart
+                if (cart == null)
+                {
+                    return this.ThanhToan();
+                }
+                else
+                {  
+
+                    int tongtien = 0;
+                    int slsp = 0;
+                    List<CartItemDTO> listCart = JsonConvert.DeserializeObject<List<CartItemDTO>>(cart.ToString());
+                    string jsonDonHang = JsonConvert.SerializeObject(listCart);
+                    foreach (var item in listCart)
+                    {
+                        tongtien += (Convert.ToInt32(item.Gia) * Convert.ToInt32(item.SoLuong));
+                        slsp += item.SoLuong;
+                    }
+                    // insert to DB
+                    DonHang dh = new DonHang();
+                    dh.NgayTao = DateTime.Now;
+                    dh.TongTien = tongtien;
+                    dh.SoLuongSanPham = slsp ;
+                    dh.GhiChu = "Giao cho Anh/chị  " + user.HoTen + " ,Đ/c: " + user.DiaChi + ", Số điện thoại " + user.SoDienThoai ;
+                    dh.IsAccept = 0;
+                    dh.IdUser = user.Id;
+                    dh.JsonSanPham = jsonDonHang;
+                    UtilsDatabase.getDaTaBase().DonHangs.InsertOnSubmit(dh);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
+                   
+                    
+                    int IDdonHang = dh.MaDonHang;
+                    List<ChiTietDonHang> listCTDH = new List<ChiTietDonHang>();
+                    foreach(var item in listCart)
+                    {   
+
+                        ChiTietDonHang ctdh = new ChiTietDonHang();
+                        ctdh.MaSanPham = Convert.ToInt32(item.MaSanPham);
+                        ctdh.SoLuong = item.SoLuong;
+                        ctdh.MaDonHang = IDdonHang;
+                        listCTDH.Add(ctdh);
+                        
+                    }
+                    UtilsDatabase.getDaTaBase().ChiTietDonHangs.InsertAllOnSubmit(listCTDH);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
+                    // reset giỏ hàng
+                    string jsonCart = JsonConvert.SerializeObject(new List<CartItemDTO>());
+                    Session["cart"] = jsonCart;
+                    return RedirectToAction("Index","Home");
+                }
+
+
+                
+            }
+            catch(Exception e)
+            {
+
+                return this.ThanhToan();
+            }
+            
         }
     }
 }
