@@ -176,7 +176,7 @@ namespace h2tshop.Controllers
                     dh.NgayTao = DateTime.Now;
                     dh.TongTien = tongtien;
                     dh.SoLuongSanPham = slsp ;
-                    dh.GhiChu = "Giao cho Anh/chị  " + user.HoTen + " ,Đ/c: " + user.DiaChi + ", Số điện thoại " + user.SoDienThoai ;
+                    dh.GhiChu = "Giao cho Anh/chị  " + user.HoTen + " ,Đ/c: " + user.DiaChi + ", Số điện thoại " + user.SoDienThoai  ;
                     dh.IsAccept = 0;
                     dh.IdUser = user.Id;
                     dh.JsonSanPham = jsonDonHang;

@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "createOrEditProduct";
+    Layout = "~/Views/Shared/_Layout_ad.cshtml";
+}
+    
+<h3 class="text-center">Thêm sản phẩm</h3>
+<div class="row">
+    <div class="col-md-2"></div>
+    @if (ViewBag.sp != null)
+    {
+        <div class="col-md-8">
+            <form action="/Product/createOrEditProduct" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input style="display:none;" type="text" name="MaSanPham" value="@ViewBag.sp.MaSanPham" class="form-control" id="inputEmail4" placeholder="Tên sản phẩm">
+                        <input type="text" name="TenSanPham" value="@ViewBag.sp.TenSanPham" class="form-control" id="inputEmail4" placeholder="Tên sản phẩm">
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <input type="number" value="@ViewBag.sp.Gia" name="Gia" min="1" class="form-control" id="inputPassword4" placeholder="Giá">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+
+                        <input type="number" min="1" value="@ViewBag.sp.SoLuong" name="SoLuong" class="form-control" id="inputEmail4" placeholder="Số lượng">
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <input type="number" min="1" value="@ViewBag.sp.KhuyenMai" name="KhuyenMai" class="form-control" id="inputEmail4" placeholder="% Khuyến mại">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+
+                        <textarea placeholder="Mô tả" value="@ViewBag.sp.MoTa" class="form-control" name="MoTa" aria-label="With textarea">@ViewBag.sp.MoTa</textarea>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="dropdown">
+
+                            <select style="padding:5px;" name="MaLoai">
+                                @foreach (var item in @ViewBag.lsp)
+                                {
+                                    if (item.MaLoai == ViewBag.sp.MaLoai)
+                                    {
+                                        <option selected value="@item.MaLoai" >@item.TenLoai</option>
+                                    }
+                                    else
+                                    {
+                                         <option  value="@item.MaLoai">@item.TenLoai</option>
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-md-8"><input type="file" name="file" class="custom-file-input" id="inputGroupFile04"></div>
+
+                </div>
+                <div>
+                    <button style="display:block;text-align:center;margin: 0 auto;" type="submit" class="btn btn-primary">Lưu lại</button>
+                </div>
+            </form>
+        </div>
+    }else { 
+    <div class="col-md-8">
+    <form action="/Product/createOrEditProduct" method="post" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+                <input type="text" name="TenSanPham" class="form-control" id="inputEmail4" placeholder="Tên sản phẩm">
+            </div>
+            <div class="form-group col-md-6">
+
+                <input type="number" name="Gia" min="1" class="form-control" id="inputPassword4" placeholder="Giá">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+                <input type="number" min="1" name="SoLuong" class="form-control" id="inputEmail4" placeholder="Số lượng">
+            </div>
+            <div class="form-group col-md-6">
+
+                <input type="number" min="1" name="KhuyenMai" class="form-control" id="inputEmail4" placeholder="% Khuyến mại">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-8">
+
+                <textarea placeholder="Mô tả" class="form-control" name="MoTa" aria-label="With textarea"></textarea>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="dropdown">
+
+                    <select style="padding:5px;" name="MaLoai">
+                        @foreach (var item in @ViewBag.lsp)
+                        {
+                            <option value="@item.MaLoai">@item.TenLoai</option>
+                        }
+
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col-md-8"><input type="file" name="file" class="custom-file-input" id="inputGroupFile04"></div>
+
+        </div>
+        <div>
+            <button style="display:block;text-align:center;margin: 0 auto;" type="submit" class="btn btn-primary">Lưu lại</button>
+        </div>
+    </form>
+</div>
+    }
+
+    <div class="col-md-2"></div>
+
+</div>

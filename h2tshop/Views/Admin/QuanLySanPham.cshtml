@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "QuanLySanPham";
+    Layout = "~/Views/Shared/_Layout_ad.cshtml";
+}
+    <style>
+        .title_cagetory {
+            color: black;
+            font-family: 'Adobe Devanagari';
+            display: inline-block;
+            text-align: center;
+            font-size: 35px;
+            margin: 0 auto;
+        }
+
+            .title_cagetory:hover {
+                color: orange;
+            }
+
+        .itemProduct {
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+            .itemProduct img {
+                width: 100%;
+                height: auto;
+            }
+
+            .itemProduct h3 {
+                color: black;
+                font-size: 15px;
+            }
+
+                .itemProduct h3:hover {
+                    color: orange;
+                }
+
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+    
+    <div>
+
+        <a href="/Product/createOrEditProduct?id=-1"  class="btn btn-primary">Thêm mới sản phẩm</a>
+    </div>
+<div class="containerProduct">
+    <div class="row">
+        @foreach (var item in @ViewBag.listSP)
+        {
+            <div class="col-md-3 itemProduct">
+                <a style="text-decoration:none;" href="/Product/detail?id=@item.MaSanPham">
+                    <img src="@item.LinkAnh" />
+                    <h3>
+                        @item.TenSanPham
+                    </h3>
+                </a>
+
+                <p>@item.Gia đ</p>
+                <div>
+                    <a href="/Product/createOrEditProduct?id=@item.MaSanPham"   class="btn btn-success">Sửa</a>
+                    <a href="/Product/deleteProduct?id=@item.MaSanPham" class="btn btn-danger">Xóa</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+

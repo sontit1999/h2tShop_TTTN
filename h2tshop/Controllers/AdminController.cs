@@ -1,4 +1,5 @@
-﻿using System;
+﻿using h2tshop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,8 @@ namespace h2tshop.Controllers
         }
         public ActionResult QuanLySanPham()
         {
+            var listSPNew = UtilsDatabase.getDaTaBase().SanPhams.ToList();
+            ViewBag.listSP = listSPNew;
             return View();
         }
         public ActionResult QuanLyLoaiSanPham()
