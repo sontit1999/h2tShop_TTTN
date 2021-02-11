@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "CreateOrEditCagetory";
+    Layout = "~/Views/Shared/_Layout_ad.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    @if (ViewBag.lsp != null)
+    {
+        <div class="col-md-4">
+            <h3 style="color:aqua;">Thông tin loại sản phẩm</h3>
+            <form action="/Cagetory/CreateOrEditCagetory" method="post" enctype="multipart/form-data" >
+                <div class="col-sm-10">
+                    <input style="display:none;" name="MaLoai" value="@ViewBag.lsp.MaLoai" />
+                    <input type="text" name="TenLoai" value="@ViewBag.lsp.TenLoai" class="form-control" id="tenloai" placeholder="Tên loại">
+                    <input style="margin-top:10px;" type="text" value="@ViewBag.lsp.MoTa" name="MoTa" class="form-control" id="mota" placeholder="Mô tả">
+                    <input style="margin-top:10px;" type="file" name="file" class="custom-file-input" id="inputGroupFile04">
+                    <button  style="margin-top:20px;display:block;margin: 0 auto;" type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-4">
+            <h3>Thông tin loại sản phẩm</h3>
+            <form action="/Cagetory/CreateOrEditCagetory" method="post" enctype="multipart/form-data" >
+                <div class="col-sm-10">
+                    <input type="text" name="tenloai" class="form-control" id="tenloai" placeholder="Tên loại">
+                    <input style="margin-top:10px;" type="text" name="mota" class="form-control" id="mota" placeholder="Mô tả">
+                    <input style="margin-top:10px;" type="file" name="file" class="custom-file-input" id="inputGroupFile04">
+                    <button  style="margin-top:20px;display:block;margin: 0 auto;" type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    }
+
+
+    <div class="col-md-4"></div>
+</div>

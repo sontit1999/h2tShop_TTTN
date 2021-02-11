@@ -214,5 +214,35 @@ namespace h2tshop.Controllers
             }
             
         }
+        public ActionResult AcceptOrder(int id, int isAccept)
+        {
+            var Order = UtilsDatabase.getDaTaBase().DonHangs.Where(o => o.MaDonHang == id).FirstOrDefault();
+            if(Order != null)
+            {
+                if (isAccept == 1)
+                {
+                    Order.IsAccept = 1;
+                    // insert hóa đơn 
+                    HoaDon hd = new HoaDon();
+                    hd.NgayLap = DateTime.Now;
+                    hd.MaDonHang = id;
+                    hd.IdUser = Order.IdUser;
+                    hd.GhiChu = Order.GhiChu;
+                    hd.TongTien = Order.TongTien;
+                    UtilsDatabase.getDaTaBase().HoaDons.InsertOnSubmit(hd);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
+                }
+                else
+                {
+                    Order.IsAccept = 2;
+                }
+                UpdateModel(Order);
+                UtilsDatabase.getDaTaBase().SubmitChanges();
+                
+                
+
+            }
+            return RedirectToAction("QuanLyDonHang", "Admin");
+        }
     }
 }
