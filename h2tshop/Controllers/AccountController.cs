@@ -52,5 +52,26 @@ namespace h2tshop.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult Register()
+        {   
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(User user)
+        {
+            var userRes = new User();
+            userRes.HoTen = user.HoTen;
+            userRes.DiaChi = user.DiaChi;
+            userRes.SoDienThoai = user.SoDienThoai;
+            userRes.TenDangNhap = user.TenDangNhap;
+            userRes.MatKhau = user.MatKhau;
+            userRes.Quyen = 2;
+            userRes.IsActive = 1;
+            UtilsDatabase.getDaTaBase().Users.InsertOnSubmit(userRes);
+            UtilsDatabase.getDaTaBase().SubmitChanges();
+
+            return RedirectToAction("Login","Account");
+        }
     }
 }
