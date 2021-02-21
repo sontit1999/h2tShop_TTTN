@@ -7,33 +7,55 @@
     td {
         padding: 5px;
     }
+    .itemProduct {
+        box-sizing: border-box;
+        padding: 20px;
+    }
+
+        .itemProduct img {
+            width: 100%;
+            height: auto;
+        }
+
+        .itemProduct h3 {
+            color: black;
+            font-size: 15px;
+        }
+
+            .itemProduct h3:hover {
+                color: orange;
+            }
+
+    a {
+        text-decoration: none !important;
+    }
 </style>
 
 <div>
     <a href="/Cagetory/CreateOrEditCagetory?id=-1" class="btn btn-primary">Thêm mới loại sản phẩm</a>
 </div>
 <h5 style="color: aqua">Danh sách loại sản phẩm</h5>
-<div class="row">
-    <div class="col-md-12">
-        <table border="1">
-            <tr>
-                <th>Tên loại </th>
-                <th>Mô tả </th>
-                <th>Ảnh </th>
-                <th>Thao tác </th>
-            </tr>
-            @foreach (var item in ViewBag.listLoaiSP)
-            {
-                <tr>
-                    <td>@item.TenLoai </td>
-                    <td>@item.MoTa </td>
-                    <td><img class="img-responsive" width="150px;" src="@item.LinkAnh" /></td>
-                    <td><a href="/Cagetory/CreateOrEditCagetory?id=@item.MaLoai" id="suaclick">Sửa</a><a href="/Cagetory/deleteCagetory?id=@item.MaLoai" id="xoaclick"> Xóa</a></td>
-                </tr>
-            }
-        </table>
+<div class="containerProduct">
+    <div class="row">
+        @foreach (var item in ViewBag.listLoaiSP)
+        {
+            <div class="col-md-2 itemProduct">
+                <a style="text-decoration:none;">
+                    <img  class="img-responsive" width="150px;"  src="@item.LinkAnh" />
+                    <h3 style="font-weight:700;">
+                        @item.TenLoai
+                    </h3>
+                </a>
+                <p> @item.MoTa </p>             
+               
+                <div>
+                    <a href="/Cagetory/CreateOrEditCagetory?id=@item.MaLoai" class="btn btn-success">Sửa</a>
+                    <a href="/Cagetory/deleteCagetory?id=@item.MaLoai" class="btn btn-danger">Xóa</a>
+                </div>
+            </div>
+        }
     </div>
-
 </div>
+
 
 

@@ -136,6 +136,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\entitiDB\DoanhThuDTO.cs" />
     <Compile Include="Models\entitiDB\DonHangDTO.cs" />
     <Compile Include="Models\entitiDB\Users.cs" />
     <Compile Include="Models\inputDTO\CartItemDTO.cs" />

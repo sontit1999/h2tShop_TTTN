@@ -15,14 +15,31 @@ namespace h2tshop.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            var currenYear = DateTime.Now.Year;
+            var listInYear = UtilsDatabase.getDaTaBase().HoaDons.Where(r => r.NgayLap.Value.Year == currenYear).ToList();
+            DoanhThuDTO dt = new DoanhThuDTO();
+            dt.Thang1 = listInYear.Where(x => x.NgayLap.Value.Month == 1).Sum(x => x.TongTien);
+            dt.Thang2 = listInYear.Where(x => x.NgayLap.Value.Month == 2).Sum(x => x.TongTien);
+            dt.Thang3 = listInYear.Where(x => x.NgayLap.Value.Month == 3).Sum(x => x.TongTien);
+            dt.Thang4 = listInYear.Where(x => x.NgayLap.Value.Month == 4).Sum(x => x.TongTien);
+            dt.Thang5 = listInYear.Where(x => x.NgayLap.Value.Month == 5).Sum(x => x.TongTien);
+            dt.Thang6 = listInYear.Where(x => x.NgayLap.Value.Month == 6).Sum(x => x.TongTien);
+            dt.Thang7 = listInYear.Where(x => x.NgayLap.Value.Month == 7).Sum(x => x.TongTien);
+            dt.Thang8 = listInYear.Where(x => x.NgayLap.Value.Month == 8).Sum(x => x.TongTien);
+            dt.Thang9 = listInYear.Where(x => x.NgayLap.Value.Month == 9).Sum(x => x.TongTien);
+            dt.Thang10 = listInYear.Where(x => x.NgayLap.Value.Month == 10).Sum(x => x.TongTien);
+            dt.Thang11 = listInYear.Where(x => x.NgayLap.Value.Month == 11).Sum(x => x.TongTien);
+            dt.Thang12 = listInYear.Where(x => x.NgayLap.Value.Month == 12).Sum(x => x.TongTien);
+            ViewBag.dt = dt;
             return View();
         }
-        public ActionResult QuanLyDonHang()
+        public ActionResult QuanLyDonHang(int type=0)
         {
+                    
             var dsdh = from dh in UtilsDatabase.getDaTaBase().DonHangs join ctdh in UtilsDatabase.getDaTaBase().ChiTietDonHangs
                        on dh.MaDonHang equals ctdh.MaDonHang join u in UtilsDatabase.getDaTaBase().Users
                        on dh.IdUser equals u.Id
-                       where dh.IsAccept == 0
+                       where dh.IsAccept == type
                        orderby dh.MaDonHang descending
                        select new DonHangDTO {
                            MaDonHang = dh.MaDonHang,
@@ -34,6 +51,7 @@ namespace h2tshop.Controllers
                        };
             var dsDonHang = dsdh.ToList();
             ViewBag.dsDonHang = dsDonHang;
+            ViewBag.type = type;
             return View();
         }
         public string GetInforDonHang(string stringCartItem)

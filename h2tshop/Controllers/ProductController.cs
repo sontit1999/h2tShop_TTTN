@@ -34,48 +34,56 @@ namespace h2tshop.Controllers
         [HttpPost]
         public ActionResult createOrEditProduct(SanPham sp, HttpPostedFileBase file)
         {
-            if (sp.MaSanPham > 0)
-            {  
-                // update 
-                var spcansua = UtilsDatabase.getDaTaBase().SanPhams.Where(p => p.MaSanPham == sp.MaSanPham).First();
-                if (file != null)
-                {
-                    var fileName = System.IO.Path.GetFileName(file.FileName);
-                    var path = Server.MapPath("~/Images/" + fileName);
-                    file.SaveAs(path);
-                    spcansua.LinkAnh = "/Images/" + fileName;
-                }
-                spcansua.IsActive = 1;
-                spcansua.TenSanPham = sp.TenSanPham;
-                spcansua.Gia = sp.Gia;
-                spcansua.SoLuong = sp.SoLuong;
-                spcansua.MoTa = sp.MoTa;
-                spcansua.KhuyenMai = sp.KhuyenMai;
-                UpdateModel(spcansua);
-                UtilsDatabase.getDaTaBase().SubmitChanges();
-            }
-            else
+            try
             {
-                // add
-                var spAdd = new SanPham();
-                if (file != null)
+                if (sp.MaSanPham > 0)
                 {
-                    var fileName = System.IO.Path.GetFileName(file.FileName);
-                    var path = Server.MapPath("~/Images/" + fileName);
-                    file.SaveAs(path);
-                    spAdd.LinkAnh = "/Images/" + fileName;
+                    // update 
+                    var spcansua = UtilsDatabase.getDaTaBase().SanPhams.Where(p => p.MaSanPham == sp.MaSanPham).First();
+                    if (file != null)
+                    {
+                        var fileName = System.IO.Path.GetFileName(file.FileName);
+                        var path = Server.MapPath("~/Images/" + fileName);
+                        file.SaveAs(path);
+                        spcansua.LinkAnh = "/Images/" + fileName;
+                    }
+                    spcansua.IsActive = 1;
+                    spcansua.TenSanPham = sp.TenSanPham;
+                    spcansua.Gia = sp.Gia;
+                    spcansua.SoLuong = sp.SoLuong;
+                    spcansua.MoTa = sp.MoTa;
+                    spcansua.KhuyenMai = sp.KhuyenMai;
+                    UpdateModel(spcansua);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
                 }
-                spAdd.IsActive = 1;
-                spAdd.TenSanPham = sp.TenSanPham;
-                spAdd.Gia = sp.Gia;
-                spAdd.SoLuong = sp.SoLuong;
-                spAdd.MoTa = sp.MoTa;
-                spAdd.KhuyenMai = sp.KhuyenMai;
-                spAdd.MaLoai = sp.MaLoai;
-                UtilsDatabase.getDaTaBase().SanPhams.InsertOnSubmit(spAdd);
-                UtilsDatabase.getDaTaBase().SubmitChanges();
+                else
+                {
+                    // add
+                    var spAdd = new SanPham();
+                    if (file != null)
+                    {
+                        var fileName = System.IO.Path.GetFileName(file.FileName);
+                        var path = Server.MapPath("~/Images/" + fileName);
+                        file.SaveAs(path);
+                        spAdd.LinkAnh = "/Images/" + fileName;
+                    }
+                    spAdd.IsActive = 1;
+                    spAdd.TenSanPham = sp.TenSanPham;
+                    spAdd.Gia = sp.Gia;
+                    spAdd.SoLuong = sp.SoLuong;
+                    spAdd.MoTa = sp.MoTa;
+                    spAdd.KhuyenMai = sp.KhuyenMai;
+                    spAdd.MaLoai = sp.MaLoai;
+                    UtilsDatabase.getDaTaBase().SanPhams.InsertOnSubmit(spAdd);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
 
+                }
             }
+            catch(Exception e)
+            {
+                return RedirectToAction("QuanLySanPham", "Admin");
+            }
+            
             
             return RedirectToAction("QuanLySanPham","Admin");
         }
