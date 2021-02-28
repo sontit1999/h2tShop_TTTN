@@ -12,7 +12,9 @@ namespace h2tshop.Controllers
         public ActionResult Index()
         {
             var listSPNew = UtilsDatabase.getDaTaBase().SanPhams.OrderByDescending(p => p.MaSanPham).ToList();
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
             ViewBag.listSPNew = listSPNew;
+            ViewBag.lsp = lsp;
             return View();
         }
 

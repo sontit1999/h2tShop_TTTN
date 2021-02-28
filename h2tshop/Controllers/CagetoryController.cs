@@ -12,7 +12,25 @@ namespace h2tshop.Controllers
         // GET: Cagetory
         public ActionResult Index(int id=0)
         {
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
+            var lspMain = UtilsDatabase.getDaTaBase().LoaiSanPhams.Where(l=>l.MaLoai == id).FirstOrDefault();
+            var listsp =  UtilsDatabase.getDaTaBase().SanPhams.ToList();
+            if (id > 0)
+            {
+                listsp = UtilsDatabase.getDaTaBase().SanPhams.Where(p=>p.MaLoai==id).ToList();
+            }
+            ViewBag.lsp = lsp;
+            ViewBag.lspMain = lspMain;
+            ViewBag.listsp = listsp;
             return View();
+        }
+        [HttpPost]
+        public JsonResult getAllCagetory()
+        {
+           
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
+
+            return Json(lsp, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public string getCagetory(int id)

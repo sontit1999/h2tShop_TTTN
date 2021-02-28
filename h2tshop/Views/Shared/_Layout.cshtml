@@ -9,6 +9,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="~/Content/mainStyle.css" rel="stylesheet" />
+    <link rel="icon" href="~/Assest/logo.png" sizes="16x16">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Vesper+Libre&display=swap" rel="stylesheet">
 </head>
@@ -163,15 +164,26 @@
                         <li class="dropdown dropdown-6">
                             Sản phẩm
                             <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
-                                <li class="dropdown_item-1"><a href="/Cagetory/Index">Áo sơ mi</a></li>
-                                <li class="dropdown_item-2">Áo thun</li>
-                                <li class="dropdown_item-3">Áo polo</li>
-                                <li class="dropdown_item-4">Áo vest</li>
-                                <li class="dropdown_item-5">Quần bò</li>
-                                <li class="dropdown_item-5">Quần Âu</li>
-                                <li class="dropdown_item-5">Quần tây</li>
-                                <li class="dropdown_item-5">Ví</li>
-                                <li class="dropdown_item-5">Thắt lưng</li>
+                                @if (ViewBag.lsp != null)
+                                {
+                                    foreach (var item in ViewBag.lsp)
+                                    {
+                                        <li class="dropdown_item-1"><a href="/Cagetory/Index?id=@item.MaLoai">@item.TenLoai</a></li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="dropdown_item-1"><a href="/Cagetory/Index">Áo sơ mi</a></li>
+                                    <li class="dropdown_item-2">Áo thun</li>
+                                    <li class="dropdown_item-3">Áo polo</li>
+                                    <li class="dropdown_item-4">Áo vest</li>
+                                    <li class="dropdown_item-5">Quần bò</li>
+                                    <li class="dropdown_item-5">Quần Âu</li>
+                                    <li class="dropdown_item-5">Quần tây</li>
+                                    <li class="dropdown_item-5">Ví</li>
+                                    <li class="dropdown_item-5">Thắt lưng</li>
+                                }
+
 
                             </ul>
                         </li>
@@ -210,7 +222,7 @@
                     </ul>
                 </nav>
             </div>
-            <div  class="col-md-3">
+            <div class="col-md-3">
                 <div style="margin-top:  10px !important;" class="row">
                     <div class="col-md-9">
                         <div class="search-container">
@@ -233,14 +245,14 @@
 
                                 <label for="psw"><b>Password</b></label>
                                 <input type="password" placeholder="Enter Password" name="pass" required>
-                                 
+
                                 <input type="submit" class="btn" value="Login">
                                 <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
                             </form>
                         </div>
                         <i class="fa fa-user" onclick="openForm()" style="font-size:24px"></i>
                     </div>
-                    <div style="padding:5px;" class="col-md-1"><a href="/cart/index" ><i class="fa fa-shopping-cart" style="font-size:24px"></i></a></div>
+                    <div style="padding:5px;" class="col-md-1"><a href="/cart/index"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a></div>
                 </div>
 
             </div>
@@ -314,13 +326,15 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-        }
+       
+        
+    function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    }
 
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-        }
+    function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    }
     </script>
 </body>
 </html>
