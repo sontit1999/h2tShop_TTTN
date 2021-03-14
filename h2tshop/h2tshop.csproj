@@ -215,6 +215,7 @@
     <Content Include="Views\Admin\QuanLyLoaiSanPham.cshtml" />
     <Content Include="Views\Cagetory\CreateOrEditCagetory.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Admin\TraCuuDonHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

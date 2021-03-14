@@ -47,7 +47,8 @@ namespace h2tshop.Controllers
                            TTDonHang = GetInforDonHang(dh.JsonSanPham),
                            TongTien = dh.TongTien,
                            NgayTao = (DateTime) dh.NgayTao,
-                           GhiChu = dh.GhiChu                        
+                           GhiChu = dh.GhiChu  ,
+                           IsAccept = dh.IsAccept
                        };
             var dsDonHang = dsdh.ToList();
             ViewBag.dsDonHang = dsDonHang;
@@ -78,6 +79,37 @@ namespace h2tshop.Controllers
         {
             var listLoaiSP= UtilsDatabase.getDaTaBase().LoaiSanPhams.Where(l=>l.IsActive==1).OrderByDescending(p => p.MaLoai).ToList();
             ViewBag.listLoaiSP = listLoaiSP;
+            return View();
+        }
+        
+        public ActionResult TraCuuDonHang(string keyword = "")
+        {
+            int madh = 9999;
+            try {
+                madh = int.Parse(keyword);
+            }
+            catch {
+                madh = 9999;
+            }
+            var dsdh = from dh in UtilsDatabase.getDaTaBase().DonHangs
+                       join ctdh in UtilsDatabase.getDaTaBase().ChiTietDonHangs
+                        on dh.MaDonHang equals ctdh.MaDonHang
+                       join u in UtilsDatabase.getDaTaBase().Users
+                        on dh.IdUser equals u.Id
+                       where u.HoTen.Contains(keyword.Trim()) || dh.MaDonHang == madh
+                       orderby dh.MaDonHang descending
+                       select new DonHangDTO
+                       {
+                           MaDonHang = dh.MaDonHang,
+                           TenKhachHang = u.HoTen,
+                           TTDonHang = GetInforDonHang(dh.JsonSanPham),
+                           TongTien = dh.TongTien,
+                           NgayTao = (DateTime)dh.NgayTao,
+                           GhiChu = dh.GhiChu,
+                           IsAccept = dh.IsAccept
+                       };
+            var dsDonHang = dsdh.ToList();           
+            ViewBag.dsDonHang = dsDonHang;         
             return View();
         }
     }
