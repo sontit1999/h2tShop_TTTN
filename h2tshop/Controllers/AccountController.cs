@@ -48,9 +48,9 @@ namespace h2tshop.Controllers
                 Response.Cookies["acc"].Value = jsonUser;
                 Response.Cookies["acc"].Expires = DateTime.Now.AddDays(200);
 
-                
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+            return this.Login(); 
         }
         public ActionResult Register()
         {   

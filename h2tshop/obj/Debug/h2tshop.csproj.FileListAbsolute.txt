@@ -54,6 +54,8 @@ G:\Project C#\h2tshop\h2tshop\bin\Antlr3.Runtime.dll
 G:\Project C#\h2tshop\h2tshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 G:\Project C#\h2tshop\h2tshop\bin\Microsoft.Web.Infrastructure.dll
 G:\Project C#\h2tshop\h2tshop\bin\Newtonsoft.Json.dll
+G:\Project C#\h2tshop\h2tshop\bin\PagedList.dll
+G:\Project C#\h2tshop\h2tshop\bin\PagedList.Mvc.dll
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.Helpers.dll
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.Mvc.dll
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.Optimization.dll
@@ -62,6 +64,8 @@ G:\Project C#\h2tshop\h2tshop\bin\System.Web.WebPages.Deployment.dll
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.WebPages.dll
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.WebPages.Razor.dll
 G:\Project C#\h2tshop\h2tshop\bin\WebGrease.dll
+G:\Project C#\h2tshop\h2tshop\bin\PagedList.xml
+G:\Project C#\h2tshop\h2tshop\bin\PagedList.Mvc.xml
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.Helpers.xml
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.Mvc.xml
 G:\Project C#\h2tshop\h2tshop\bin\System.Web.Optimization.xml

@@ -10,18 +10,61 @@ namespace h2tshop.Controllers
     public class CagetoryController : Controller
     {
         // GET: Cagetory
-        public ActionResult Index(int id=0)
+        public ActionResult Index(int id=0,int page = 0,int? filter = 0)
         {
+            int pageSize = 4;
+            int numberpage = 0;
             var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
             var lspMain = UtilsDatabase.getDaTaBase().LoaiSanPhams.Where(l=>l.MaLoai == id).FirstOrDefault();
             var listsp =  UtilsDatabase.getDaTaBase().SanPhams.ToList();
+            
             if (id > 0)
             {
                 listsp = UtilsDatabase.getDaTaBase().SanPhams.Where(p=>p.MaLoai==id).ToList();
+               
             }
             ViewBag.lsp = lsp;
+            ViewBag.maloai = id;
             ViewBag.lspMain = lspMain;
+            ViewBag.page = page;
+            if (listsp.Count / pageSize - 1 > 0)
+            {
+                numberpage = listsp.Count / pageSize;
+            }
+            ViewBag.count = numberpage;
+            if (listsp.Count >= pageSize)
+            {
+                try
+                {
+                    listsp = listsp.GetRange((page * pageSize), pageSize);
+                }
+                catch
+                {
+                    listsp = listsp.GetRange((page * pageSize),listsp.Count-(page * pageSize));
+                }
+                
+            }
+            if (filter.HasValue)
+            {
+                switch (filter)
+                {
+                    case 1:
+                        listsp = listsp.OrderBy(p => p.Gia).ToList();                           
+                        break;
+                    case 2:
+                        listsp = listsp.OrderByDescending(p => p.Gia).ToList();
+                        break;
+                    case 3:
+                        listsp = listsp.OrderBy(p => p.TenSanPham).ToList();
+                        break;
+                    case 4:
+                        listsp = listsp.OrderByDescending(p => p.TenSanPham).ToList();
+                        break;
+                }
+            }
             ViewBag.listsp = listsp;
+           
+            
             return View();
         }
         [HttpPost]

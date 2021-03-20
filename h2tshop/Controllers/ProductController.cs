@@ -12,6 +12,8 @@ namespace h2tshop.Controllers
         // GET: Product
         public ActionResult Index()
         {
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
+            ViewBag.lsp = lsp;
             return View();
         }
         public ActionResult Detail(int id = 0)

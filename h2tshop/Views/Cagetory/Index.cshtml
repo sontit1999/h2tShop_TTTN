@@ -1,20 +1,19 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 <style>
-    .banner_cagetoy{
+    .banner_cagetoy {
         width: 100%;
     }
-    .banner_cagetoy img{
-        width: 100%;
-        height:auto;
-    }
-    .titleAndFilter h3{
+
+        .banner_cagetoy img {
+            width: 100%;
+            height: auto;
+        }
+
+    .titleAndFilter h3 {
         font-weight: 600;
         font-size: 20px;
     }
+
     .itemProduct {
         box-sizing: border-box;
         padding: 20px;
@@ -37,6 +36,7 @@
     a {
         text-decoration: none !important;
     }
+
     .pagination {
         display: inline-block;
     }
@@ -48,12 +48,12 @@
             text-decoration: none;
         }
 </style>
-    <div class="banner_cagetoy">
+<div class="banner_cagetoy">
 
-        <img src="@ViewBag.lspMain.LinkAnh" />
-       
-    </div>
-<div class="container_Product" >
+    <img src="@ViewBag.lspMain.LinkAnh" />
+
+</div>
+<div class="container_Product">
     <div class="row titleAndFilter">
         <div class="col-md-3">
             <h3>@ViewBag.lspMain.TenLoai</h3>
@@ -61,16 +61,12 @@
         <div class="col-md-3"></div>
         <div class="col-md-3"></div>
         <div style="text-align: end;" class=" col-md-3">
-            <form style="padding: 10px;" >
-                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                    <option value="1">Sản phẩm nổi bật</option>
-                    <option value="2">Giá: tăng dần</option>
-                    <option value="3">Giá: giảm dần</option>
-                    <option value="4">Tên: A-Z</option>
-                    <option value="5">Tên: Z-A</option>
-                    <option value="4">Cũ nhất</option>
-                    <option value="5">Mới nhất</option>
-                    <option value="5">Bán chạy nhất</option>
+            <form style="padding: 10px;">
+                <select id="mySelect" onchange="myFunction()" class="custom-select mr-sm-2" id="inlineFormCustomSelect">                 
+                    <option value="1">Giá: tăng dần</option>
+                    <option value="2">Giá: giảm dần</option>
+                    <option value="3">Tên: A-Z</option>
+                    <option value="4">Tên: Z-A</option>                  
                 </select>
             </form>
         </div>
@@ -79,7 +75,7 @@
         @foreach (var item in ViewBag.listsp)
         {
             <div class="col-md-3 itemProduct">
-                <a style="text-decoration:none;" href="#">
+                <a style="text-decoration:none;" href="/Product/detail?id=@item.MaSanPham">
                     <img src="@item.LinkAnh" />
                     <h3>
                         @item.TenSanPham
@@ -90,19 +86,25 @@
             </div>
         }
 
-       
+
     </div>
     <div class="text-center">
         <div class="text-center pagination">
+
             <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
+            @for (int i = 0; i <= @ViewBag.count; i++)
+            {
+                <a href="/Cagetory/Index?id=@ViewBag.maloai&page=@(i)">@(i)</a>
+            }
             <a href="#">&raquo;</a>
         </div>
     </div>
 </div>
+<script>
+function myFunction() {
+    var x = document.getElementById("mySelect").value;
+    var url = "Index?id=@ViewBag.maloai&page=@ViewBag.page&filter=" + x;
+    window.location.href = url;
+}
+</script>
 

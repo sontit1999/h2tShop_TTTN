@@ -67,7 +67,10 @@ namespace h2tshop.Controllers
         }
         public ActionResult QuanLyTaiKhoan()
         {
+            var listACC = UtilsDatabase.getDaTaBase().Users.Where(l => l.IsActive == 1).OrderByDescending(p => p.Id).ToList();
+            ViewBag.listACC = listACC;
             return View();
+           
         }
         public ActionResult QuanLySanPham()
         {

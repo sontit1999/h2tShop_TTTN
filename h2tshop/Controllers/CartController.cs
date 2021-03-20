@@ -15,6 +15,9 @@ namespace h2tshop.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+            
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
+            ViewBag.lsp = lsp;
             int tongtien = 0;
             List<CartItemDTO> listCart = new List<CartItemDTO>();
             var numberItem = 0;
@@ -36,8 +39,15 @@ namespace h2tshop.Controllers
         [HttpPost]
         public ActionResult ThanhToan()
         {
-            string mystring = Request.Cookies["acc"].Value.ToString();
-            var user = JsonConvert.DeserializeObject<Users>(mystring);
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
+            ViewBag.lsp = lsp;
+            var user = new Users();
+            string mystring = "";
+            if (Request.Cookies["acc"] != null)
+            {
+                mystring = Request.Cookies["acc"].Value.ToString();
+            }
+            user = JsonConvert.DeserializeObject<Users>(mystring);
             var cart = Session["cart"];
             List<CartItemDTO> listCart = new List<CartItemDTO>();
             if (cart != null)
@@ -50,7 +60,7 @@ namespace h2tshop.Controllers
         }
         [HttpPost]
         public ActionResult addCart(CartItemDTO cartItem)
-        {
+        {         
             var carrt = cartItem;
             var cart = Session["cart"];//get key cart
             if (cart == null)
@@ -119,7 +129,7 @@ namespace h2tshop.Controllers
         [HttpPost]
         public int deleteCart(CartUpdateDTO cartUpdate)
         {
-          
+           
             var cart = Session["cart"];//get key cart
             if (cart == null)
             {
@@ -172,6 +182,7 @@ namespace h2tshop.Controllers
                         slsp += item.SoLuong;
                     }
                     // insert to DB
+                    user.Id = 1;
                     DonHang dh = new DonHang();
                     dh.NgayTao = DateTime.Now;
                     dh.TongTien = tongtien;

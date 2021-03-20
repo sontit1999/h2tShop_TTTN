@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Indexs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -21,6 +21,7 @@
     a {
         text-decoration: none !important;
     }
+
     .pagination {
         display: inline-block;
     }
@@ -52,18 +53,18 @@
                 <p>@item.Gia đ</p>
             </div>
         }
-       
+
     </div>
 
     <div class="text-center">
         <div class="text-center pagination">
-            <a href="#">&laquo;</a>          
+            <a href="#">&laquo;</a>
             @for (int i = 0; i <= @ViewBag.count; i++)
             {
-                <a href="/Search/Indexs?keyword=@ViewBag.keyword&page=@(i)">@(i)</a>
+                <a href="/Search/Index?keyword=@ViewBag.keyword&page=@(i)">@(i)</a>
             }
             <a href="#">&raquo;</a>
-         
+
         </div>
     </div>
 </div>
