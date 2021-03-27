@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace h2tshop.Controllers
 {
@@ -63,6 +64,22 @@ namespace h2tshop.Controllers
         {         
             var carrt = cartItem;
             var cart = Session["cart"];//get key cart
+
+            // cập nhật số lượng đã bán bảng LoaiSanPham
+            var SP = UtilsDatabase.getDaTaBase().SanPhams.Where(o => o.MaSanPham == Convert.ToInt32(cartItem.MaSanPham)).FirstOrDefault();
+            if (SP != null)
+            {
+                var LSP = UtilsDatabase.getDaTaBase().LoaiSanPhams.Where(o => o.MaLoai == Convert.ToInt32(SP.MaLoai)).FirstOrDefault();
+                if (LSP != null)
+                {
+                    LSP.SoLuongDaBan = SP.SoLuongDaBan + cartItem.SoLuong;                
+                    UpdateModel(SP);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
+                }
+                UpdateModel(SP);
+                UtilsDatabase.getDaTaBase().SubmitChanges();
+            }
+
             if (cart == null)
             {
                 List<CartItemDTO> listCart = new List<CartItemDTO>();
@@ -125,6 +142,17 @@ namespace h2tshop.Controllers
                
             }
             return tongtien;
+        }
+        [HttpPost]
+        public List<String> getstringSuggest(string keyword)
+        {
+            var listString = new List<String>();
+            var dssp = UtilsDatabase.getDaTaBase().SanPhams.Where(o => o.TenSanPham.Contains(keyword.Trim())).ToList();
+            foreach(var item in dssp)
+            {
+                listString.Add(item.TenSanPham);
+            }
+            return listString;
         }
         [HttpPost]
         public int deleteCart(CartUpdateDTO cartUpdate)
@@ -191,9 +219,10 @@ namespace h2tshop.Controllers
                     dh.IsAccept = 0;
                     dh.IdUser = user.Id;
                     dh.JsonSanPham = jsonDonHang;
+                                
                     UtilsDatabase.getDaTaBase().DonHangs.InsertOnSubmit(dh);
                     UtilsDatabase.getDaTaBase().SubmitChanges();
-                   
+                    updateSoLuongDaBanSanPham(listCart);
                     
                     int IDdonHang = dh.MaDonHang;
                     List<ChiTietDonHang> listCTDH = new List<ChiTietDonHang>();
@@ -208,11 +237,11 @@ namespace h2tshop.Controllers
                         
                     }
                     UtilsDatabase.getDaTaBase().ChiTietDonHangs.InsertAllOnSubmit(listCTDH);
-                    UtilsDatabase.getDaTaBase().SubmitChanges();
+                    UtilsDatabase.getDaTaBase().SubmitChanges();                    
                     // reset giỏ hàng
                     string jsonCart = JsonConvert.SerializeObject(new List<CartItemDTO>());
                     Session["cart"] = jsonCart;
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Thanks","Home");
                 }
 
 
@@ -225,6 +254,24 @@ namespace h2tshop.Controllers
             }
             
         }
+
+        private void updateSoLuongDaBanSanPham(List<CartItemDTO> listCart)
+        {
+            foreach (var item in listCart)
+            {
+
+                var SP = UtilsDatabase.getDaTaBase().SanPhams.Where(o => o.MaSanPham == Convert.ToInt32(item.MaSanPham)).FirstOrDefault();
+                if (SP != null)
+                {
+                    SP.SoLuongDaBan = SP.SoLuongDaBan + item.SoLuong;
+                    SP.SoLuong = SP.SoLuong - item.SoLuong;              
+                    UpdateModel(SP);
+                    UtilsDatabase.getDaTaBase().SubmitChanges();
+                }
+
+            }
+        }
+
         public ActionResult AcceptOrder(int id, int isAccept)
         {
             var Order = UtilsDatabase.getDaTaBase().DonHangs.Where(o => o.MaDonHang == id).FirstOrDefault();
@@ -233,6 +280,8 @@ namespace h2tshop.Controllers
                 if (isAccept == 1)
                 {
                     Order.IsAccept = 1;
+                    
+                    Order.NgayHenTra = DateTime.Now.AddDays(4);
                     // insert hóa đơn 
                     HoaDon hd = new HoaDon();
                     hd.NgayLap = DateTime.Now;
@@ -243,9 +292,25 @@ namespace h2tshop.Controllers
                     UtilsDatabase.getDaTaBase().HoaDons.InsertOnSubmit(hd);
                     UtilsDatabase.getDaTaBase().SubmitChanges();
                 }
-                else
+                else if(isAccept==2)
                 {
                     Order.IsAccept = 2;
+                }else if(isAccept == 3)
+                {   
+                    var dh = UtilsDatabase.getDaTaBase().DonHangs.Where(o => o.MaDonHang == id).FirstOrDefault();
+                    var ctdh = UtilsDatabase.getDaTaBase().ChiTietDonHangs.Where(o => o.MaDonHang == dh.MaDonHang).ToList();
+                    foreach(var item in ctdh)
+                    {
+                        var SP = UtilsDatabase.getDaTaBase().SanPhams.Where(o => o.MaSanPham == item.MaSanPham).FirstOrDefault();
+                        if (SP != null)
+                        {
+                            SP.SoLuongDaBan = SP.SoLuongDaBan - item.SoLuong;
+                            SP.SoLuong = SP.SoLuong + item.SoLuong;
+                            UpdateModel(SP);
+                            UtilsDatabase.getDaTaBase().SubmitChanges();
+                        }
+                    }
+                   
                 }
                 UpdateModel(Order);
                 UtilsDatabase.getDaTaBase().SubmitChanges();

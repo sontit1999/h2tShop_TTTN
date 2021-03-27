@@ -145,6 +145,7 @@
         margin: 0px !important;
     }
 </style>
+
 <body style="background-color: white !important">
     <div class="header">
         <div style="padding: 7px;" class="row">
@@ -170,19 +171,7 @@
                                     {
                                         <li class="dropdown_item-1"><a href="/Cagetory/Index?id=@item.MaLoai">@item.TenLoai</a></li>
                                     }
-                                }
-                                else
-                                {
-                                    <li class="dropdown_item-1"><a href="/Cagetory/Index">Áo sơ mi</a></li>
-                                    <li class="dropdown_item-2">Áo thun</li>
-                                    <li class="dropdown_item-3">Áo polo</li>
-                                    <li class="dropdown_item-4">Áo vest</li>
-                                    <li class="dropdown_item-5">Quần bò</li>
-                                    <li class="dropdown_item-5">Quần Âu</li>
-                                    <li class="dropdown_item-5">Quần tây</li>
-                                    <li class="dropdown_item-5">Ví</li>
-                                    <li class="dropdown_item-5">Thắt lưng</li>
-                                }
+                                }                              
 
 
                             </ul>
@@ -190,12 +179,13 @@
                         <li class="dropdown dropdown-6">
                             Sản phẩm mùa đông
                             <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-6">
-                                <li class="dropdown_item-1">Áo khoác</li>
-                                <li class="dropdown_item-2">Áo bò</li>
-                                <li class="dropdown_item-3">Áo nỉ</li>
-                                <li class="dropdown_item-4">Áo len</li>
-                                <li class="dropdown_item-5">Áo hoocdi</li>
-                                <li class="dropdown_item-5">Áo khoác da</li>
+                                @if (ViewBag.lsp != null)
+                                {
+                                    foreach (var item in ViewBag.lsp)
+                                    {
+                                        <li class="dropdown_item-1"><a href="/Cagetory/Index?id=@item.MaLoai">@item.TenLoai</a></li>
+                                    }
+                                }
                             </ul>
                         </li>
                         <li class="dropdown dropdown-6">
@@ -227,7 +217,7 @@
                     <div class="col-md-9">
                         <div class="search-container">
                             <form class="example" method="post" action="/search/index" style="margin:auto;max-width:300px">
-                                <input style="background-color:white !important" type="text" placeholder="Search.." name="keyword">
+                                <input id="keywords" style="background-color:white !important" type="text" placeholder="Search.." name="keyword">
                                 <button style="background: #060606 !important;" type="submit"><i class="fa fa-search"></i></button>
 
                             </form>
@@ -309,16 +299,16 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
-       
-        
+<script>
+
+   
     function openForm() {
     document.getElementById("myForm").style.display = "block";
     }
-
+    
     function closeForm() {
     document.getElementById("myForm").style.display = "none";
     }
-    </script>
+</script>
 </body>
 </html>

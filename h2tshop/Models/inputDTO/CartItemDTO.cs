@@ -15,5 +15,7 @@ namespace h2tshop.Models.inputDTO
         public String Size { get; set; }
         public int SoLuong { get; set; }
         public String GhiChu { get; set; }
+        public DateTime NgayTao  { get; set; }
+      
     }
 }

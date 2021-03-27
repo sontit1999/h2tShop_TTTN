@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "CreateOrEditAccount";
+    Layout = "~/Views/Shared/_Layout_ad.cshtml";
+}
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        @if (ViewBag.acc != null)
+        {
+            <div class="col-md-4">
+                <h3 style="color:aqua;">Thông tin tài khoản</h3>
+                <form action="/Account/CreateOrEditAccount" method="post">
+                    <div class="col-sm-10">
+                        <input style="display:none;" name="Id" value="@ViewBag.acc.Id" />
+                        <input type="text" name="HoTen" value="@ViewBag.acc.HoTen" class="form-control" id="hoten" placeholder="Họ tên">
+                        <input type="text" name="DiaChi" value="@ViewBag.acc.DiaChi" class="form-control" id="diachi" placeholder="Địa chỉ">
+                        <input type="number" name="SoDienThoai" value="@ViewBag.acc.SoDienThoai" class="form-control" id="sodienthoai" placeholder="Số điện thoại">
+                        <input type="text" name="TenDangNhap" value="@ViewBag.acc.TenDangNhap" class="form-control" id="tendangnhap" placeholder="Tên đăng nhập">
+                        <input type="text" name="MatKhau" value="@ViewBag.acc.MatKhau" class="form-control" id="matkhau" placeholder="Mật khẩu">
+                        <button style="margin-top:20px;display:block;margin: 0 auto;" type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-4">
+                <h3>Thông tin loại sản phẩm</h3>
+                <form action="/Account/CreateOrEditAccount" method="post" >
+                    <div class="col-sm-10">
+                        
+                        <input type="text" name="HoTen"  class="form-control" id="hoten" placeholder="Họ tên">
+                        <input type="text" name="DiaChi"  class="form-control" id="diachi" placeholder="Địa chỉ">
+                        <input type="number" name="SoDienThoai"  class="form-control" id="sodienthoai" placeholder="Số điện thoại">
+                        <input type="text" name="TenDangNhap"  class="form-control" id="tendangnhap" placeholder="Tên đăng nhập">
+                        <input type="text" name="MatKhau" class="form-control" id="matkhau" placeholder="Mật khẩu">
+                        <button style="margin-top:20px;display:block;margin: 0 auto;" type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        }
+
+
+        <div class="col-md-4"></div>
+    </div>
+

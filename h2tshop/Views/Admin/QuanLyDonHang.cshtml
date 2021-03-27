@@ -51,85 +51,118 @@
         
 </style>
 <h4 style="color: deepskyblue;">Danh sách đơn hàng</h4>
-<div style="width: 100%;margin-top: 20px;">
-    <div class="class=" row" form-check">
-      
-        <div class="col-md-4">
-            @if (ViewBag.type == 0)
-            {
-                <input class="form-check-input" onchange="formSubmit(this)" type="radio" name="gridRadios" id="gridRadios1" value="chua" checked>
-            }
-            else
-            {
-                <input class="form-check-input" onchange="formSubmit(this)" type="radio" name="gridRadios" id="gridRadios1" value="chua" >
-            }
-            <label class="form-check-label" for="gridRadios1">
-                Chưa xác nhận
-            </label>
-        </div>
-        <div class="col-md-4">
-            @if (ViewBag.type == 1)
-            {
-            <input class="form-check-input" type="radio" onchange="formSubmit(this)" name="gridRadios" id="gridRadios2" value="roi" checked>
-            }
-            else
-            {
-              <input class="form-check-input" type="radio" onchange="formSubmit(this)" name="gridRadios" id="gridRadios2" value="roi" >
-            }
-            
-            <label class="form-check-label" for="gridRadios2">
-                Đã xác nhận
-            </label>
-        </div>
-        <div class="col-md-4">
-            @if (ViewBag.type == 2)
-            {
-            <input class="form-check-input" type="radio" onchange="formSubmit(this)" name="gridRadios" id="gridRadios2" value="tuchoi" checked>
-            }
-            else
-            {
-                <input class="form-check-input" type="radio" onchange="formSubmit(this)" name="gridRadios" id="gridRadios2" value="tuchoi">
-            }
-            <label class="form-check-label" for="gridRadios2">
-                Đã từ chối
-            </label>
-        </div>
+<div style="margin: 20px;" class="row">
+    <div class="col-md-5">
        
-        
     </div>
-   
-</div>
-<div class="containerProduct">
-    <div class="row">
-        @foreach (var item in ViewBag.dsDonHang)
-        {
-        <div class="col-md-3 itemProduct">
-            <a style="text-decoration:none;">
-                <img src="https://png.pngtree.com/png-clipart/20190904/original/pngtree-light-blue-shopping-cart-illustration-png-image_4500466.jpg" />
-                <h3>
-                    Khách Hàng: @item.TenKhachHang
-                </h3>
-            </a>
-            <p> Chi tiết: @item.TTDonHang </p>
-            <p> Chi tiết: @item.GhiChu </p>
-            
-            <p>Tổng tiền: @Html.FormatValue(item.TongTien, "{0:#,##0} đ")</p>
-            <p>Ngày: @item.NgayTao</p>
-            @if (ViewBag.type == 0)
+    <div class="col-md-2">
+        <select id="mySelect" onchange="myFunction()" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+            @if (@ViewBag.type == 0)
             {
-                <div>
-                    <a href="/Cart/AcceptOrder?id=@item.MaDonHang&isAccept=1" class="btn btn-success">Ok</a>
-                    <a href="/Cart/AcceptOrder?id=@item.MaDonHang&isAccept=2" class="btn btn-danger">Cancel</a>
-                </div>
+                <option selected value="0">Chưa xác nhận</option>
+            }
+            else
+            {
+                <option value="0">Chưa xác nhận</option>
+            }
+            @if (@ViewBag.type == 1)
+            {
+                <option selected value="1">Đã xác nhận</option>
+            }
+            else
+            {
+                <option value="1">Đã xác nhận</option>
+            }
+            @if (@ViewBag.type == 2)
+            {
+                <option selected value="2">Đã từ chối</option>
+            }
+            else
+            {
+                <option value="2">Đã từ chối</option>
+            }
+            @if (@ViewBag.type == 3)
+            {
+                     <option selected value="3">Đã hoàn lại</option>
+            }
+            else
+            {
+                    <option value="3">Đã hoàn lại</option>
             }
 
+
+            
+
+        </select>
+    </div>
+    <div class="col-md-5">      
+    </div>
+</div>
+<div class="row" >
+    <div class="col-md-12">
+        <div class="card mb-4">       
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã hóa đơn</th>
+                                <th>Tên Khách Hàng</th>
+                                <th>Ngày Tạo</th>
+                                <th>Ngày Hẹn Trả</th>
+                                <th>Chi tiết</th>
+                                <th>Ghi chú</th>
+                                <th>Tổng tiền</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in ViewBag.dsDonHang)
+                            {
+                                <tr>
+                                    <td>@item.MaDonHang</td>
+                                    <td>@item.TenKhachHang</td>
+                                    <td>@item.NgayTao</td>
+                                        @if (item.NgayHenTra != null)
+                                        {
+                                           <td>@item.NgayHenTra</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                    <td>@item.TTDonHang</td>
+                                    <td>@item.GhiChu</td>
+                                    <td>@item.TongTien đ</td>
+                                    <td>
+                                        @if (@ViewBag.type == 0)
+                                        {
+                                            <a style="display:inline-block;" href="/Cart/AcceptOrder?id=@item.MaDonHang&isAccept=1" class="btn btn-success">Ok</a>
+                                            <a style="display:inline-block;" href="/Cart/AcceptOrder?id=@item.MaDonHang&isAccept=2" class="btn btn-danger">X</a>
+                                        }
+                                        @if (@ViewBag.type == 1)
+                                        {                                         
+                                            <a style="display:inline-block;" href="/Cart/AcceptOrder?id=@item.MaDonHang&isAccept=3" class="btn btn-danger">X</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        }
     </div>
 </div>
 <script>
+    function myFunction() {
+        var x = document.getElementById("mySelect").value;
+        var url = "QuanLyDonHang?type=" + x;
+        window.location.href = url;
+     }
     function formSubmit(radioObj) {
-      
+
         var link = "@Url.Action("QuanLyDOnHang", "Admin", new { type = 0 })";
         switch (radioObj.value) {
             case "chua":
@@ -142,7 +175,7 @@
                 link = "@Url.Action("QuanLyDOnHang", "Admin", new { type = 2 })";
                 break;
         }
-        
+
         window.location.href = link;
 
 

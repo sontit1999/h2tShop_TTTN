@@ -14,5 +14,6 @@ namespace h2tshop.Models.entitiDB
         public DateTime NgayTao { get; set; }
         public string GhiChu { get; set; }
         public int IsAccept { get; set; }
+        public DateTime? NgayHenTra { get; set; }
     }
 }

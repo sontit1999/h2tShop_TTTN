@@ -34,7 +34,7 @@
 </style>
 
 <div>
-    <a href="/Cagetory/CreateOrEditCagetory?id=-1" class="btn btn-primary">Thêm mới tài khoản</a>
+    <a href="/Account/CreateOrEditAccount?id=-1" class="btn btn-primary">Thêm mới tài khoản</a>
 </div>
 <h5 style="color: aqua">Danh sách tài khoản</h5>
 <div class="containerProduct">
@@ -51,8 +51,8 @@
                 <p> @item.MatKhau </p>
 
                 <div>
-                    <a href="" class="btn btn-success">Sửa</a>
-                    <a href="" class="btn btn-danger">Xóa</a>
+                    <a href="/Account/CreateOrEditAccount?id=@item.Id" class="btn btn-success">Sửa</a>
+                    <a href="/Account/deleteAcc?id=@item.Id" class="btn btn-danger">Xóa</a>
                 </div>
             </div>
         }

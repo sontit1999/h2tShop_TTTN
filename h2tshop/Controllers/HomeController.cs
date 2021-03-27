@@ -21,7 +21,18 @@ namespace h2tshop.Controllers
             ViewBag.lsp = lsp;
             return View();
         }
-
+        public ActionResult Thanks()
+        {
+            var listSPNew = UtilsDatabase.getDaTaBase().SanPhams.OrderByDescending(p => p.MaSanPham).OrderBy(p => Guid.NewGuid())
+                        .Take(8).ToList();
+            var listSPSale = UtilsDatabase.getDaTaBase().SanPhams.Where(p => p.KhuyenMai >= 20).OrderByDescending(p => p.KhuyenMai).OrderBy(p => Guid.NewGuid())
+                        .Take(8).ToList();
+            var lsp = UtilsDatabase.getDaTaBase().LoaiSanPhams.ToList();
+            ViewBag.listSPNew = listSPNew;
+            ViewBag.listSPSale = listSPSale;
+            ViewBag.lsp = lsp;
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

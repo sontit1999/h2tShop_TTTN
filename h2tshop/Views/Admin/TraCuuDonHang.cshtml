@@ -71,6 +71,11 @@
             <p> Chi tiết: @item.TTDonHang </p>
             <p>Tổng tiền: @Html.FormatValue(item.TongTien, "{0:#,##0} đ")</p>
             <p>Ngày: @item.NgayTao</p>
+            @if (item.NgayHenTra != null)
+            {
+                <p>Ngày hẹn trả: <b>@item.NgayHenTra</b></p>
+            }
+            <p>@item.GhiChu</p>
             <div>
                 @if (item.IsAccept == 0)
                 {
@@ -86,7 +91,7 @@
                 }
 
 
-                
+
             </div>
 
         </div>

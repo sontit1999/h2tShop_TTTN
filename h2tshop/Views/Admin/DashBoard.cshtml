@@ -1,0 +1,364 @@
+﻿
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_Layout_ad.cshtml";
+}
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<div class="container-fluid">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-5">
+                
+            </div>
+            <div class="col-md-2">
+                <select id="mySelect" onchange="myFunction()" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    @if (ViewBag.type != null)
+                    {
+                        if (ViewBag.type == 0)
+                        {
+                            <option selected value="0">Hôm nay</option>
+                        }
+                        else
+                        {
+                            <option value="0">Hôm nay</option>
+                        }
+                        if (ViewBag.type == 1)
+                        {
+                            <option selected value="1">7 ngày trước</option>
+                        }
+                        else
+                        {
+                            <option value="1">7 ngày trước</option>
+                        }
+                        if (ViewBag.type == 2)
+                        {
+                            <option selected value="2">30 ngày trước</option>
+                        }
+                        else
+                        {
+                            <option value="2">30 ngày trước</option>
+                        }
+                        if (ViewBag.type == 3)
+                        {
+                            <option selected value="3">Tất cả</option>
+                        }
+                        else
+                        {
+                            <option value="3">Tất cả</option>
+                        }
+
+                    }
+                    else
+                    {
+                        <option value="0">Hôm nay</option>
+                        <option value="1">7 ngày trước</option>
+                        <option value="2">30 ngày trước</option>
+                        <option value="3">Tất cả</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label for="date">Ngày:</label>
+                <input onchange="myFunction()" type="date" id="date" name="date">
+            </div>
+        </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">Đơn hàng</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="/Admin/QuanLyDonHang?type=1">@ViewBag.totalDonHang+</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">Doanh Thu</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">@ViewBag.TongDoanhThu</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">Sản Phẩm</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">@ViewBag.totalSanPham +</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">Truy Cập</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">@ApplicationInstance.Application["Totaluser"] +</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area mr-1"></i>
+                            Biểu đồ đường doanh thu
+                        </div>
+                        <div class="card-body"><canvas id="myArea" width="100%" height="40"></canvas></div>
+                        <div class="card-body"><canvas id="myAreaCircle" width="100%" height="40"></canvas></div>
+                    </div>
+                    <h3>Danh sách sản phẩm bán chạy</h3>
+                    @foreach (var item in ViewBag.listSPbanChay)
+                    {
+                        <div>
+                            <div class="row item_Cart">
+                                <div style="box-sizing:border-box;padding:10px;" class=" col-md-2">
+                                    <div class="text-center">
+                                        <img style=" width: 100%; height: auto;margin:0 auto;display:block;" src="@item.LinkAnh" />
+                                    </div>
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <p class="titleProduct">@item.TenSanPham</p>
+                                    <p>@item.Gia đ</p>
+                                    <p>Số Lượng: @item.SoLuongDaBan </p>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    }
+                </div>
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-bar mr-1"></i>
+                            Doanh thu năm
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    Đơn hàng thành công
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Tên Khách Hàng</th>
+                                    <th>Ngày Tạo</th>
+                                    <th>Chi tiết</th>
+                                    <th>Ghi chú</th>
+                                    <th>Tổng tiền</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in ViewBag.dsDonHang)
+                                {
+                                    <tr>
+                                        <td>@item.MaDonHang</td>
+                                        <td>@item.TenKhachHang</td>
+                                        <td>@item.NgayTao</td>
+                                        <td>@item.TTDonHang</td>
+                                        <td>@item.GhiChu</td>
+                                        <td>@item.TongTien đ</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+            datasets: [{
+                label: 'Doanh thu 2021',
+                data: [@ViewBag.dt.Thang1, @ViewBag.dt.Thang2, @ViewBag.dt.Thang3, @ViewBag.dt.Thang4, @ViewBag.dt.Thang5, @ViewBag.dt.Thang6, @ViewBag.dt.Thang7, @ViewBag.dt.Thang8, @ViewBag.dt.Thang9, @ViewBag.dt.Thang10, @ViewBag.dt.Thang11, @ViewBag.dt.Thang12],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    data = {
+        datasets: [{
+            data: [@ViewBag.dt.Thang1,@ViewBag.dt.Thang2, @ViewBag.dt.Thang3,@ViewBag.dt.Thang4, @ViewBag.dt.Thang5, @ViewBag.dt.Thang6, @ViewBag.dt.Thang7, @ViewBag.dt.Thang8, @ViewBag.dt.Thang9, @ViewBag.dt.Thang10, @ViewBag.dt.Thang11, @ViewBag.dt.Thang12]
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+            'T1',
+            'T2',
+            'T3',
+            'T4',
+            'T5',
+            'T6',
+            'T7',
+            'T8',
+            'T9',
+            'T10',
+            'T11',
+            'T12'
+        ]
+    };
+    var ctx1 = document.getElementById('myArea').getContext('2d');
+    var myChartArea = new Chart(ctx1, {
+        type: 'line',
+        data:  data,
+        options: {
+            scales: {
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
+    data = {
+        datasets: [{
+            data: [@ViewBag.dt.Thang1,@ViewBag.dt.Thang2, @ViewBag.dt.Thang3,@ViewBag.dt.Thang4, @ViewBag.dt.Thang5, @ViewBag.dt.Thang6, @ViewBag.dt.Thang7, @ViewBag.dt.Thang8, @ViewBag.dt.Thang9, @ViewBag.dt.Thang10, @ViewBag.dt.Thang11, @ViewBag.dt.Thang12]
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+            'T1',
+            'T2',
+            'T3',
+            'T4',
+            'T5',
+            'T6',
+            'T7',
+            'T8',
+            'T9',
+            'T10',
+            'T11',
+            'T12'
+        ]
+    };
+    var ctx1 = document.getElementById('myArea').getContext('2d');
+    var myChartArea = new Chart(ctx1, {
+        type: 'line',
+        data:  data,
+        options: {
+            scales: {
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
+    data = {
+        datasets: [{
+            data: [@ViewBag.dt.Thang1,@ViewBag.dt.Thang2, @ViewBag.dt.Thang3,@ViewBag.dt.Thang4, @ViewBag.dt.Thang5, @ViewBag.dt.Thang6, @ViewBag.dt.Thang7, @ViewBag.dt.Thang8, @ViewBag.dt.Thang9, @ViewBag.dt.Thang10, @ViewBag.dt.Thang11, @ViewBag.dt.Thang12]
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+            'T1',
+            'T2',
+            'T3',
+            'T4',
+            'T5',
+            'T6',
+            'T7',
+            'T8',
+            'T9',
+            'T10',
+            'T11',
+            'T12'
+        ]
+    };
+    var ctx1 = document.getElementById('myArea').getContext('2d');
+    var myChartArea = new Chart(ctx1, {
+        type: 'line',
+        data:  data,
+        options: {
+            scales: {
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
+    data3 = {
+        datasets: [{
+            data: [@ViewBag.lspTK.SoMi,@ViewBag.lspTK.Thun,@ViewBag.lspTK.PoLo,@ViewBag.lspTK.QuanJean, @ViewBag.lspTK.QuanJogger, @ViewBag.lspTK.QuanTay, @ViewBag.lspTK.QuanSooc, @ViewBag.lspTK.AoNi, @ViewBag.lspTK.AoKhoac, @ViewBag.lspTK.AoGio],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',              
+            ],
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+            'Sơ mi',
+            'Áo thun',
+            'Áo polo',
+            'Quần jean',
+            'Quần jogger',
+            'Quần tây',
+            'Quần sóoc',
+            'Áo nỉ',
+            'Áo khoác',
+            'Áo gió'          
+        ]
+    };
+    var ctx3 = document.getElementById('myAreaCircle').getContext('2d');
+    var myChartAreaC = new Chart(ctx3, {
+        type: 'pie',
+        data:  data3,
+    });
+    function myFunction() {
+        var x = document.getElementById("mySelect").value
+        var date = document.getElementById("date").value;
+        var url = "DashBoard?type=" + x + "&from=" + date;
+        window.location.href = url;
+    }
+
+</script>
+
+

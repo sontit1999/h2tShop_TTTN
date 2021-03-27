@@ -28,7 +28,43 @@
     </div>
     <div class="col-md-4">
         <div class="row report">
-            
+            <form action="Admin/Index">
+                <div class="row">
+                    <div class="col-md-2"><label for="birthdaytime">From</label></div>
+                    <div class="col-md-10"> <input type="datetime-local" id="from" name="from"><br /></div>
+                    <div class="col-md-2"> <label for="birthdaytime">To</label></div>
+                    <div class="col-md-10">  <input type="datetime-local" id="to" name="to"><br /></div>
+                    <div class="col-md-12">
+                        <br />
+                        <input type="submit" class="btn-primary" value="Tra cứu">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <p>Tổng doanh thu : @ViewBag.TongDoanhThu vnđ</p>
+        </div>
+        <div class="row">
+            @foreach (var item in ViewBag.listsp)
+            {
+                <div>
+
+                    <div class="row item_Cart">
+                        <div style="box-sizing:border-box;padding:10px;" class=" col-md-3">
+                            <div class="text-center">
+                                <img style=" width: 60%; height: auto;margin:0 auto;display:block;" src="@item.LinkAnh" />
+                            </div>
+                        </div>
+                        <div class="col-md-7 text-center">
+                            <h3 class="titleProduct">@item.TenSanPham</h3>
+                            <p>@item.Gia đ</p>
+                            <p>Số Lượng: @item.SoLuong </p>
+                        </div>
+
+                    </div>
+                    <hr />
+                </div>
+            }
         </div>
     </div>
 </div>

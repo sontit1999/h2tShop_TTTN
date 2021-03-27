@@ -6,8 +6,8 @@
       <Column Name="MaSanPham" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaDonHang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="SanPham_ChiTietDonHang" Member="SanPham" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="SanPham" IsForeignKey="true" />
       <Association Name="DonHang_ChiTietDonHang" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" />
+      <Association Name="SanPham_ChiTietDonHang" Member="SanPham" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="SanPham" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Roles" Member="Roles">
@@ -28,9 +28,37 @@
       <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Quyen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IsActive" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="User_DonHang" Member="DonHangs" ThisKey="Id" OtherKey="IdUser" Type="DonHang" />
       <Association Name="User_HoaDon" Member="HoaDons" ThisKey="Id" OtherKey="IdUser" Type="HoaDon" />
+      <Association Name="User_DonHang" Member="DonHangs" ThisKey="Id" OtherKey="IdUser" Type="DonHang" />
       <Association Name="Role_User" Member="Role" ThisKey="Quyen" OtherKey="Id" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HoaDon" Member="HoaDons">
+    <Type Name="HoaDon">
+      <Column Name="MaHoaDon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MaDonHang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_HoaDon" Member="User" ThisKey="IdUser" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Association Name="DonHang_HoaDon" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DonHang" Member="DonHangs">
+    <Type Name="DonHang">
+      <Column Name="MaDonHang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NgayTao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SoLuongSanPham" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TongTien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsAccept" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JsonSanPham" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="NgayHenTra" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="DonHang_ChiTietDonHang" Member="ChiTietDonHangs" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="ChiTietDonHang" />
+      <Association Name="DonHang_HoaDon" Member="HoaDons" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="HoaDon" />
+      <Association Name="User_DonHang" Member="User" ThisKey="IdUser" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SanPham" Member="SanPhams">
@@ -44,35 +72,9 @@
       <Column Name="KhuyenMai" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IsActive" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaLoai" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuongDaBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="SanPham_ChiTietDonHang" Member="ChiTietDonHangs" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="ChiTietDonHang" />
       <Association Name="LoaiSanPham_SanPham" Member="LoaiSanPham" ThisKey="MaLoai" OtherKey="MaLoai" Type="LoaiSanPham" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DonHang" Member="DonHangs">
-    <Type Name="DonHang">
-      <Column Name="MaDonHang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="NgayTao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="SoLuongSanPham" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TongTien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="IsAccept" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="JsonSanPham" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
-      <Association Name="DonHang_ChiTietDonHang" Member="ChiTietDonHangs" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="ChiTietDonHang" />
-      <Association Name="DonHang_HoaDon" Member="HoaDons" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="HoaDon" />
-      <Association Name="User_DonHang" Member="User" ThisKey="IdUser" OtherKey="Id" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.HoaDon" Member="HoaDons">
-    <Type Name="HoaDon">
-      <Column Name="MaHoaDon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="MaDonHang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="TongTien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="DonHang_HoaDon" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" />
-      <Association Name="User_HoaDon" Member="User" ThisKey="IdUser" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LoaiSanPham" Member="LoaiSanPhams">
@@ -82,6 +84,7 @@
       <Column Name="MoTa" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="LinkAnh" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="IsActive" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoLuongDaBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="LoaiSanPham_SanPham" Member="SanPhams" ThisKey="MaLoai" OtherKey="MaLoai" Type="SanPham" />
     </Type>
   </Table>

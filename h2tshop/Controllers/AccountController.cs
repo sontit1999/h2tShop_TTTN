@@ -73,5 +73,56 @@ namespace h2tshop.Controllers
 
             return RedirectToAction("Login","Account");
         }
+        public ActionResult CreateOrEditAccount(int id = -1)
+        {
+            var acc = UtilsDatabase.getDaTaBase().Users.Where(l => l.Id == id).FirstOrDefault();
+            ViewBag.acc = acc;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateOrEditAccount(User user)
+        {
+            if (user.Id > 0)
+            {
+                // update 
+                var acccansua = UtilsDatabase.getDaTaBase().Users.Where(p => p.Id == user.Id).First();
+                acccansua.IsActive = 1;
+                acccansua.HoTen = user.HoTen;
+                acccansua.DiaChi = user.DiaChi;
+                acccansua.SoDienThoai = user.SoDienThoai;
+                acccansua.TenDangNhap = user.TenDangNhap;
+                acccansua.MatKhau = user.MatKhau;
+                UpdateModel(acccansua);
+                UtilsDatabase.getDaTaBase().SubmitChanges();
+            }
+            else
+            {
+                // add
+                var acccansua = new User();
+                acccansua.IsActive = 1;
+                acccansua.HoTen = user.HoTen;
+                acccansua.DiaChi = user.DiaChi;
+                acccansua.SoDienThoai = user.SoDienThoai;
+                acccansua.TenDangNhap = user.TenDangNhap;
+                acccansua.MatKhau = user.MatKhau;
+                acccansua.Quyen = 2;
+                acccansua.IsActive = 1;
+                
+                UtilsDatabase.getDaTaBase().Users.InsertOnSubmit(acccansua);
+                UtilsDatabase.getDaTaBase().SubmitChanges();
+
+            }
+            return RedirectToAction("QuanLyTaikhoan", "Admin");
+        }
+        public ActionResult deleteAcc(int id = -1)
+        {
+            var acccansua = UtilsDatabase.getDaTaBase().Users.Where(p => p.Id == id).FirstOrDefault();
+            if (acccansua != null)
+            {
+                acccansua.IsActive = 0;
+                UtilsDatabase.getDaTaBase().SubmitChanges();
+            }
+            return RedirectToAction("QuanLyTaikhoan", "Admin");
+        }
     }
 }
