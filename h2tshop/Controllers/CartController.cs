@@ -222,7 +222,7 @@ namespace h2tshop.Controllers
                                 
                     UtilsDatabase.getDaTaBase().DonHangs.InsertOnSubmit(dh);
                     UtilsDatabase.getDaTaBase().SubmitChanges();
-                    updateSoLuongDaBanSanPham(listCart);
+                   // updateSoLuongDaBanSanPham(listCart);
                     
                     int IDdonHang = dh.MaDonHang;
                     List<ChiTietDonHang> listCTDH = new List<ChiTietDonHang>();
