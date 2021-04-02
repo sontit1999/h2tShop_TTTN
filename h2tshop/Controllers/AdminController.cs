@@ -115,8 +115,17 @@ namespace h2tshop.Controllers
             }
             else
             {
+                var hd = UtilsDatabase.getDaTaBase().HoaDons.Where(hds => hds.NgayLap.Value == now).ToList();
                 totalDonHang = UtilsDatabase.getDaTaBase().DonHangs.Where(dh => dh.NgayTao.Value == now).Count();
-                totalDoanhThu = UtilsDatabase.getDaTaBase().HoaDons.Where(hd => hd.NgayLap.Value == now).Sum(p => p.TongTien);
+                if (hd.Count > 0)
+                {
+                    totalDoanhThu = UtilsDatabase.getDaTaBase().HoaDons.Where(hd1 => hd1.NgayLap.Value == now).Sum(p => p.TongTien);
+                }
+                else
+                {
+                    totalDoanhThu = 0;
+                }
+                
             }
             
             var totalTruyCap = 500;
